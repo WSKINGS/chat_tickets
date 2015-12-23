@@ -1,0 +1,102 @@
+<table  class="list_table" id="category_table" >
+            	<thead>
+                   	<tr>
+                		<th>{lang('category name')}</th>
+			<th style="width:20px;">{CATEGORY_ID}</th>
+                		<th style="width:50px;">{ORDER_ID}</th>
+                   		<th style="width:200px;">{CATEGORY_URL}</th>
+                   		<th style="width:100px;">{CATEGORY_STATUS}</th>
+			{if($debug)}
+			<th style="width:30px;">{CATEGORY_SYSTEM}</th>
+			{/if}
+                        		<th style="width:150px;">{OPTIONS}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	
+                </tbody>
+                
+</table>
+
+<script>
+$(function()
+{
+	$('tr[category_id]').mouseenter(function()
+	{
+		$('tr[category_id]').css('background-color','#fff');
+		this.style.backgroundColor = '#eee';
+	}).mouseleave(function()
+	{
+		//this.style.backgroundColor = '#fff';
+	});
+	
+	$('tr[category_id]').each(function()
+	{
+		var cid = $(this).attr('category_id');
+		if ($('tr[parent_id='+cid+']').length > 0)
+		{
+			$(this).find('img[rel=pointer]').show();
+		}
+	});
+	
+	$.get('admin.php?p=category&action=ajax_get',{ },function(s)
+	{
+		$('#category_table tbody').html(s);
+		init_admin();
+	},'text');	
+});
+function open_children(cid,o,depth)
+{
+	depth++;
+	var s = $(o).attr('status');
+	if (s == 'empty')
+		return;
+	else if (s == 'opened')
+	{
+		$(o).attr('status','closed').find('img').attr('src','end_admin/view/images/plus.png');
+		$('tr[parent_id='+cid+']').hide();
+	}
+	else if (s == 'closed')
+	{
+		$(o).attr('status','opened').find('img').attr('src','end_admin/view/images/minus.png');
+		$('tr[parent_id='+cid+']').show();
+	}
+	else if (s == 'loading')
+	{
+		return;
+	}
+	else
+	{
+		$(o).attr('status','loading').find('img').attr('src','end_admin/view/images/minus.png');
+		var line = $(o).parents('[ntype=line]');
+		$.get('admin.php?p=category&action=ajax_get&category_id='+cid+'&depth='+depth,{ },function(s)
+		{
+			if ($.trim(s) == "")
+			{
+				$(o).attr('status','empty');
+				$(o).find('img').remove();
+			}
+			else
+			{
+				$(o).attr('status','opened');
+				line.after(s);
+				init_admin();
+			}
+		},'text');
+	}
+}
+</script>
+
+<div style="display:none">
+<select id="status_select">
+	{foreach($end_models as $key=>$val)}
+	<option value="{$key}" source="{htmlspecialchars($val['name'])}">{strip_tags($val['name'])}</option>
+	{/foreach}
+</select>
+</div>
+<div style="display:none">
+<select id="category_system_select">
+	<option value="no">no</option>
+	<option value="yes">yes</option>
+</select>
+</div>

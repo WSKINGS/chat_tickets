@@ -1,0 +1,34 @@
+<div id="footer">
+&copy; 北京分合科技有限公司 ({$time_used}s)
+</div>
+<script src="end_system/plugin/ckeditor/ckeditor.js"></script>
+<script>
+var gap = $(window).height() - $(document.body).height() - 2;
+if (gap > 0)
+{
+        //$('#main_b').height($('#main_b').height() + gap);
+        //$('#admin_left_b').height($('#admin_left_b').height() + gap);
+}
+//是否启动点击编辑功能
+if (!can_not_update) load_admin();
+//替换富文本编辑框
+if ($('textarea[rich]').length > 0)
+{
+        $('textarea[rich]').each(function()
+        {
+                CKEDITOR.replace( this.id,
+                {
+                        height:$(this).height(),
+                        skin:'v2',
+                        width:$(this).width()
+                });
+        });
+}
+
+var endcms = {  };
+endcms.lang = {  };
+endcms.lang.search = "{lang('Search')}";
+endcms.lang.searchBt = "{lang('Search_button')}";
+endcms.lang.cancelSearch = "{lang('Cancel_Search')}";
+endcms.lang.searchInfo = "{lang('star_available')}";
+</script>

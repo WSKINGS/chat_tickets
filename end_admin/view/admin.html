@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='maindiv'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left'>
+		<div id="admin_left_b">
+			<!-- INCLUDE admin_left.html -->
+		</div>
+    </div>
+    <div id='main'>
+		<div id="main_b">
+        	<div id="position">
+				{CURRENT_POSITION}: {POSITION}
+			</div>
+			
+	        {if($err_msg)}
+	        <div class="err_msg pad">
+	        	{$err_msg}
+	        </div>
+	        {/if}
+        
+	        {if($success_msg)}
+	        <div class="success_msg pad">
+	        	{$success_msg}
+	        </div>
+	        {/if}
+        
+	        <div id="admin_content">
+				<div class="nav_wrapper">
+					&nbsp;{FUNCTION}:
+					<?php if(check_show('add')){?>
+					<a class="nav" href="javascript:;" onclick="new_admin(this);">{NEW_ADMIN}</a>
+					<?php };?>
+				</div>
+				
+				<div id="new_admin" class="new-form" style="display:{if($admin)}{else}none{/if};width:300px;">
+	            	<h2>{NEW_ADMIN}</h2>
+	        		<!-- INCLUDE admin_new.html -->
+	            </div>
+				
+				<div class="nav_wrapper">
+					&nbsp;{DISPLAY}:
+					<a href="admin.php?p=admin"  class="nav {if($rights_id=="-1")}nav_on{/if}">{SHOW_ALL}</a>
+					<a href="admin.php?p=admin&rights_id=0" class="nav {if($rights_id=="0")}nav_on{/if}">{DEFAULT_RIGHTS_GROUP}</a>
+					{foreach($rights as $r)}
+					<a href="admin.php?p=admin&rights_id={$r.rights_id}" class="nav {if($r.rights_id == $rights_id)}nav_on{/if}">{$r.name}</a>
+					{/foreach}
+				</div>
+			
+				
+	            <!-- INCLUDE admin_list.html -->
+				<br />
+				{$pager}
+	        </div>
+        </div>
+    </div>
+</div>
+
+<div id="change_password" class="new-form" style="position:absolute;width:200px;">
+        	 <table>
+             	<tr>
+                	<td valign="top">{ADMIN_NAME}</td>
+                    <td><input type="text" class="inputtext" style="width:100px;" id='change_password_admin' disabled="disabled" /></td>
+                </tr>
+                <tr>
+                	<td valign="top">{ADMIN_PASSWORD}</td>
+                    <td><input type="password" class="inputtext" password="1"  style="width:100px;" /></td>
+                </tr>
+          
+                <tr>
+                	<td valign="top">{ADMIN_PASSWORD_CONFIRM}</td>
+                    <td><input type="password" class="inputtext" password="2"  style="width:100px;" /></td>
+                </tr>
+                <tr>
+                	<td colspan="2" align="center">
+                    	<input type="button" value="{ADMIN_SUBMIT}" onclick="do_change_password(); return false;" />
+                        <input type="button" value="{CANCEL}" onclick="$('#change_password').slideUp(200); return false;" />
+                    </td>
+                </tr>
+             </table>
+</div>
+
+
+<script>
+<?php if(check_show('update')):?>
+$('.change_password').bind('mouseover',function()
+{
+	$(this).addClass('text_mouseover'); 
+}); 
+
+$('.change_password').bind('mouseout',function(){ $(this).removeClass('text_mouseover'); });
+<?php endif;?>
+function change_password(event,name,id)
+{
+	$('#change_password_admin').val(name);
+	$('[password]').val('').attr('admin_id',id);
+	$('#change_password')
+		.css( { left:event.clientX+$(document).scrollLeft(),top:event.clientY+$(document).scrollTop() } )
+		.slideDown(200);
+}
+
+function do_change_password()
+{
+	if ($('[password=1]').val() != $('[password=2]').val())
+	{
+		alert('{PASSWORD_NOT_THE_SAME}');
+		return;
+	}
+	else
+	{
+		var p = $('[password=1]');
+		$.post("admin.php?p=ajax&m=update_password&table=admin&id="+p.attr('admin_id'),{ value:p.val()},change_password_callback);
+	}
+}
+
+function change_password_callback(s)
+{
+	if (s == 'success')
+	{
+		alert('{ADMIN_UPDATE_SUCCESS}');
+	}
+	else
+	{
+		alert(s);
+	}
+	$('#change_password').slideUp(200);
+}
+
+function delete_admin(id,o)
+{
+	$(o).attr('to_be_delete','yes').html('{DELETING}').unbind('click');
+	$.post('admin.php?p=ajax&m=delete&table=admin&id='+id,{ },delete_callback);
+}
+
+function delete_callback(s)
+{
+	if (s != 'success')
+	{
+		alert(s);
+		return false;
+	}
+	$('[to_be_delete=yes]').parent().parent().fadeOut();
+}
+
+function new_admin(o)
+{
+	$(o).addClass('nav_on').attr('newadmin','yes');
+	$('#new_admin').fadeTo(10,0).slideDown(200).fadeTo('fast',1);
+}
+
+function cancel_new_admin()
+{
+	$('a[newadmin=yes]').removeClass('nav_on');
+	$('#new_admin').fadeTo('fast',0).slideUp(200);
+}
+<?php if (!$_SESSION['login_user']['rights']['admin_update']) {?>
+can_not_update = true;
+<?php }?>
+</script>
+
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

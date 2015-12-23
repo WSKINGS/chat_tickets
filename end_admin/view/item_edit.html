@@ -1,0 +1,64 @@
+<div id="sys_table">
+{if($item_id)}
+<form action="admin.php?m=edit_item&p=item&item_id={$item_id}&category_id={$category_id}" method="post" enctype="multipart/form-data">
+{else}
+<form action="admin.php?m=new_item&p=item&category_id={$category_id}" method="post"  enctype="multipart/form-data" >
+{/if}
+<input type="hidden" name="return_to" value="{$content.return_to}" />
+	<table >
+		<tr>
+			<th class="sys_tit_bg" colspan="2">
+				<h2 class="sys_h2">{if ($item_id)}{EDIT_ITEM}{else}{ADD_ITEM}{/if}</h2>
+			</th>
+		</tr>
+    	<tr>
+        	<td valign="top">
+				{ITEM_CATEGORY}<span style="color:red">*</span>
+			</td>
+        	<td>
+				<div><select name="category_id" >
+                	<option value="0">{PLEASE_SELECT}</option>
+                		{$category_tree}
+                	</select>
+				</div>
+            </td>
+       	</tr>
+    
+        <!-- INCLUDE edit_fields.html -->
+
+        <tr>
+        	<td colspan="2" align="center">
+				<input type="submit" name="save" value="{SAVE}" /> &nbsp;
+				{if($statuses)}
+				{foreach($statuses as $key=>$s)}
+					<input type="submit" name="saveas[{$key}]" value="{SAVE_AS}'{strip_tags($s)}'" /> &nbsp;
+				{/foreach}
+				{/if}
+				<input type="button" value="{RETURN}"  onclick="if (confirm('{RETURN_ALERT}')) history.go(-1);" /> &nbsp;
+			</td>
+        </tr>
+     </table>
+     
+        
+   </form>
+</div>
+
+<script>
+$(function()
+{
+	$('option[status][status!={$this_category['status']}]').attr('disabled','disabled').each(function()
+	{
+		var depth = 0,node = this,lastNode;
+		while(node.tagName.toLowerCase() != 'select')
+		{
+			if (node.tagName.toLowerCase() == 'optgroup') depth++;
+			lastNode = node;
+			node = node.parentNode;
+		}
+		var space = '';
+		for(var i = 0;i<depth;i++) space+= ' ';
+		$('<optgroup label="'+space+$(this).html()+'"></optgroup>').insertAfter(lastNode);
+		$(this).remove();
+	});
+});
+</script>

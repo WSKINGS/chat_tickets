@@ -1,0 +1,174 @@
+<!-- INCLUDE header.html -->
+<div class="book-container">
+  <div class="header">
+    <p class="text-right"><button id="exit_manage" type="button" class="btn btn-link"><?php echo $texts['exit_manage']; ?></button></p>
+  </div>
+  <div class="content">
+  	<div class="content-block">
+  		<div class="block-header">
+  			<h4><?php echo $texts['history_ticket']; ?></h4>
+  		</div>
+  		<div class="block-body">
+  			<table class="table table-condense">
+  				<thead>
+  				<tr>
+  					<th class="col-md-2"><?php echo $texts['order_serial']; ?></th>
+  					<th class="col-md-3"><?php echo $texts['ticket_type']; ?></th>
+            <th class="col-md-1"><?php echo $texts['quantity']; ?></th>
+            <th class="col-md-2"><?php echo $texts['end_time']; ?></th>
+  					<th class="col-md-2"><?php echo $texts['amount']; ?></th>
+  					<th class="col-md-2"><?php echo $texts['charge_status']; ?></th>
+  					<th class="col-md-1"><?php echo $texts['management']; ?></th>
+  				</tr>
+  				</thead>
+  				<tbody>
+  				<?php foreach ($orders_data as $key => $value) : ?>
+  					<tr>
+  						<td><?php echo $value['order_serial']; ?></td>
+  						<td><?php echo $value['tickets'][0]['ticket_data']['name'][$value['language']]; ?></td>
+              <td><?php echo $value['tickets'][0]['quantity']; ?></td>
+              <td><?php echo date("Y-m-d",$value['tickets'][0]['ticket_data']['end_time']); ?></td>
+  						<td><span class="money"><?php echo $value['amount']; ?></span></td>
+  						<td><?php echo $texts['charge_'.$value['charge_status']] ?></td>
+  						<td>
+  							<button onclick="manage_order(<?php echo $key; ?>)" style="padding:0;" class="btn btn-link"><?php echo $texts['management']; ?></button>
+  						</td>
+  					</tr>
+  				<?php endforeach; ?>
+  				</tbody>
+  			</table>
+  		</div>
+  	</div>
+  	<div id="manage_container" class="content-block">
+  	</div>
+  	<div id="update_info_container" class="content-block">
+  	</div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="pay_modal" tabindex="-1" role="dialog" aria-labelledby="pay_modal_label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p><?php echo $texts['pay_question']; ?></p>
+        <div class="text-center">
+        	<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $texts['pay_failed']; ?></button>
+        	<a href="<?php echo $success_url ?>" type="button" class="btn btn-success"><?php echo $texts['pay_finished']; ?></a>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- include script.html -->
+<script type="text/javascript">
+function manage_order(id) {
+	$jqxhr = $.get("?p=ticket_manage&activity=<?php echo $activity_id; ?>&lang=<?php echo $lang; ?>&channel=<?php echo $channel ?>&do=manage_order&order="+id, 
+		    function(s) {
+		      var ret = $.parseJSON(s);
+		      if (ret.r == 'ok') {
+		      	$("#manage_container").html(ret.msg);
+		      	$('.add-money').each( function() {
+				    $(this).html(money_format($(this).html()));
+				  });
+		      }
+		      else {
+		        alert(ret.msg);
+		      }
+		    });
+}
+
+function update_info(id) {
+	$jqxhr = $.get("?p=ticket_manage&activity=<?php echo $activity_id; ?>&lang=<?php echo $lang; ?>&channel=<?php echo $channel ?>&do=update_info&order="+id, 
+		    function(s) {
+		      var ret = $.parseJSON(s);
+		      if (ret.r == 'ok') {
+		      	$("#update_info_container").html(ret.msg);
+		      }
+		      else {
+		        alert(ret.msg);
+		      }
+		    });
+}
+
+function bind_data(data, str) {
+  $(str).html(data);
+}
+
+function on_bind(num) {
+  var data = $("#attendee_"+num+"_name_zh").val();
+  bind_data(data, ".badge_name_"+num+"_zh");
+}
+
+function on_bind_enname(num) {
+  var firstname = $("#attendee_"+num+"_name_en_firstname").val();
+  var lastname = $("#attendee_"+num+"_name_en_lastname").val();
+
+  var data = firstname+" "+lastname;
+
+  bind_data(data, ".badge_name_"+num+"_en");
+}
+
+function show_name_zh() {
+	var data = $("#company_name_zh").val();
+	bind_data(data, ".badge_company_name_zh");
+}
+
+function show_name_en() {
+	var data = $("#company_name_zh").val();
+	bind_data(data, ".badge_company_name_en");
+}
+
+function pay_js() {
+	$("#pay_form").submit(function(evt) {
+		$("#pay_modal").modal({
+			show: true,
+			keyboard: false,
+			backdrop: 'static'
+		});
+		return true;
+	});
+}
+
+function close_update() {
+	$("#update_info_container").html("");
+}
+
+function submit_update(order) {
+
+    var data;
+    data = $("#update_form").serialize();
+
+    $.post("?p=ticket_manage&do=update_order&order="+order+"&activity=<?php echo $activity_id ?>&channel=<?php echo $channel; ?>",data,function(s) {
+      var ret = $.parseJSON(s);
+        if (ret.r == 'ok') {
+        	alert(ret.msg);
+          close_update();
+        }
+        else if (ret.r == 'error') {
+          mark_blank_input();
+          alert(ret.msg);
+        }
+      },'text');
+}
+
+$( function() {
+	$('.money').each( function() {
+	    $(this).html(money_format($(this).html()));
+	  });
+	$("#exit_manage").click( function() {
+		$jqxhr = $.get("?p=book_jquery&activity=<?php echo $activity_id; ?>&do=exit_manage&lang=<?php echo $lang; ?>&channel=<?php echo $channel ?>", 
+		    function(s) {
+		      var ret = $.parseJSON(s);
+		      if (ret.r == 'ok') {
+		      	window.location.href = ret.msg;
+		      }
+		      else {
+		        alert(ret.msg);
+		      }
+		    });
+	});
+});
+</script>
+<!-- include footer.html -->

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='maindiv'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left' onselectstart="return false;">
+		<div id="admin_left_b">
+	    	<div class="module">
+	        	<h2>{CATEGORIES_TREE}</h2>
+				<div id="category_tree" style="display:none">
+					<ul>
+						<li><a href="admin.php?p=item" {if($category_id=="0")}class="tree_on" {/if} >{ROOT_CATEGORY}</a></li>
+						<li>{$all_category}</li>
+					</ul>
+					<div style="clear:both;"></div>
+				</div>
+	        </div>
+		</div>
+    </div>
+
+    <div id='main'>
+	
+        <div id="main_b">
+			<div id="position">
+				{CURRENT_POSITION}:{NAVI_ITEM} > <a href="admin.php?p=item">{CATEGORY_ROOT}</a> > 
+				{foreach($position as $p)}
+				 <a href="admin.php?p=item&category_id={$p.category_id}">{$p.name}</a> > 
+				{/foreach}
+			</div>
+			
+			{if($err_msg)}
+			<div class="error">
+			{$err_msg}
+			</div>
+			{/if}
+			
+	  	    {if($page_content)}
+		        	{$page_content}
+					<br />
+		    {else}
+			
+			
+			<div id="admin_content">
+			{if($this_category.is_list)}
+				{if($category_id)}
+				<div class="nav_wrapper">
+					&nbsp;{FUNCTION}:
+					<?php if(check_show('add')){?>
+					<a class="nav" href="admin.php?p=item&action=new_item&category_id={$category_id}">{NEW_ITEM}</a>
+					<?php };?>
+				</div>
+				{/if}
+				
+				
+				{if($statuses)}
+				<div class="nav_wrapper">
+					&nbsp;{DISPLAY}:
+					<a 
+						href="admin.php?p=item&category_id={$category_id}"  
+						class="nav {if($current_status_all)}nav_on{/if}">{SHOW_ALL}</a>
+					{foreach($statuses as $index=>$s)}
+					<a 
+						href="admin.php?p=item&status={$s.index}&category_id={$category_id}" 
+						class="nav {if($s.index==$status)}nav_on{/if}">{strip_tags($s.value)}</a>
+					{/foreach}
+				</div>
+				{/if}
+			
+				{$list_content}
+			
+			{else}
+				{if($category_id)}
+					<h2>{CATEGORY_TYPE}: {$category_type}</h2>
+					{if($category['system'] == 'no')}<a href="admin.php?p=category&action=edit_category&category_id={$category_id}">{EDIT}</a>{/if}
+					<table class="view-table">
+					<?php
+					foreach($category_fields as $key=>$field)
+					{
+						echo '<tr>';
+						echo '<th>'.$field['name'].'</th>';
+						echo '<td>'.$category[$key].'</td>';
+						echo '</tr>';
+					}
+					?>
+					</table>
+				{else}
+				<!--
+					TODO 内容管理首页
+				-->
+				{/if}
+			{/if}
+			</div>
+        {/if}
+        </div>
+    </div>
+	<div style="clear:both;"></div>
+</div>
+
+<script type="text/javascript">
+$(function()
+{
+	var root = $('#category_tree').children('ul');
+	root.find('a.status_folder').click(function(event)
+	{
+		event.preventDefault();
+		$(this).prev().trigger('click');
+		return false;
+	});
+});
+
+function delete_item(id,o)
+{
+	if (!confirm('{DELETE_CONFIRM}')) return;
+	$(o).attr('to_be_delete','yes').html('{DELETING}').unbind('click');
+	$.post('admin.php?p=ajax&m=delete&table={$table}&id='+id,{ },delete_callback);
+}
+function delete_callback(s)
+{
+	if (s == 'error')
+	{
+		alert('{DELETE_ERROR}');
+		return false;
+	}
+	$('[to_be_delete=yes]').parents('tr').fadeOut();
+}
+function change_category(o)
+{
+	if ($(o).val())
+	{
+		window.location = "admin.php?p=item&category_id="+ $(o).val();
+	}
+}
+
+function change_status(id,value,o)
+{
+	$(o).attr('to_be_delete','yes').html('{DELETING}').unbind('click');
+	$.post('admin.php?p=ajax&m=update&column=status&table={$table}&id='+id,{ value:value },function(s)
+	{
+		if (parseInt(s) != s)  alert(s);
+		else
+			delete_callback();
+	});
+}
+</script>
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

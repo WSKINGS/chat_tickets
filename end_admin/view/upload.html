@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body style="text-align:left">
+<?php if (check_show('add')){?>
+<form style="border:0" action="admin.php?p=upload&m=upload&for={$for}" method="post" ENCTYPE="multipart/form-data" >
+	<input type="file" style="width:150px;" size="10" name="upfile" /> <input type="submit" value="上传" /> <span style="color:orange" id="msg">{$msg}</span>
+	&nbsp;&nbsp;{CHOOSE_ATTACHMENT}:
+	<select style="height:20px;width:300px;" onchange="insert_file(this)">
+		<option value=''> </option>
+		{foreach($recent as $r)}
+		<option 
+			value="{myurlencode($r.filepath)}" fname="{$r.name}">
+			({format_date($r.mtime)}) {$r.name}
+		</option>
+		{/foreach}
+	</select>
+</form>
+
+<script type="text/javascript">
+function insert_file(o)
+{
+	var index = o.selectedIndex;
+	if (index <= 0) return;
+	var option = o.options[index];
+	var url = option.value;
+	var fname = $(option).attr('fname');
+	var html = get_display_html(url,fname);
+	var ftype = fname.split('.');
+	ftype = ftype[ftype.length-1].toLowerCase();
+	//if ie and want to insert flash video
+	ckeditor_insert(html);
+	
+	o.selectedIndex = 0;
+}
+
+function ckeditor_insert(html)
+{
+	if ('{$for}')
+	{
+		var editor = parent.CKEDITOR.instances['editor_{$for}'];
+	}
+	else
+	{
+		for(var i in parent.CKEDITOR.instances)
+		{
+			var editor = parent.CKEDITOR.instances[i];
+		}
+	}
+	editor.insertHtml(html);
+}
+
+function get_display_html(url,fname)
+{
+	var ftype = fname.split('.');
+	ftype = ftype[ftype.length-1].toLowerCase();
+	var html = '';
+	
+	if (',jpg,jpeg,gif,png,bmp,'.indexOf(','+ftype+',') != -1)
+	{
+		html = '<img src="'+url+'" />';
+	}
+	else
+	{
+		html = '<br />{ATTACHMENT}:<a href="'+url+'" >'+fname+'</a>';
+	}
+	return html;
+}
+
+{if($file_url)}
+//如果上传成功
+var html = get_display_html('{myurlencode($file_url)}','{$filename}');
+var ftype = '{$filename}'.split('.');
+ftype = ftype[ftype.length-1].toLowerCase();
+ckeditor_insert(html);
+{/if}
+
+setTimeout("document.getElementById('msg').style.display='none'",3000);
+</script>
+<?php 
+}else
+{
+	echo LANG_ACCESS_DENIED;
+}?>
+</body>
+</html>

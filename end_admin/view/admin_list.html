@@ -1,0 +1,50 @@
+
+<table class="list_table" id="admin_table">
+            	<thead>
+                   	<tr>
+                		<th width="30%" search="name" order="name">{ADMIN_NAME}</th>
+                        <th width="10%">{PASSWORD}</th>
+                   		<th width="30%" search="email" order="email">{EMAIL}</th>
+                        <th width="15%">{RIGHTS_GROUP}</th>
+                        <th width="10%">{ADMIN_OPTIONS}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+          		  	{foreach($admins as $a)}
+            		<tr>
+               		 	<td>{$a.name}</td>
+                        <td><div onclick="change_password(event,'{$a.name}',{$a.admin_id})" class="change_password" style="cursor:pointer;text-align:center">{CHANGE_PASSWORD}</div></td>
+               		    <td><div admin_type="text"
+                        	admin_para="m=update&table=admin&column=email&id={$a.admin_id}" 
+                            admin_button="no" 
+                            admin_trigger="click">{$a.email}</div>
+                        </td>
+                        
+                        <td>
+							<div admin_type="text"
+			              	admin_para="m=update&table=admin&column=rights_id&id={$a.admin_id}" 
+			                    admin_select_value="{$a.rights_id}"
+			                    admin_select_source_id="rights_select"
+			                    admin_trigger="click"
+								>{$a.rights_group_name}</div>
+						</td>
+                        <td style="text-align:center">
+							<?php if(check_show('delete')):?>
+                        	<a href="javascript:;" onclick="if (confirm('{DELETE_CONFIRM}')) delete_admin({$a.admin_id},this);">{DELETE}</a>
+							<?php endif;?>
+                        </td>
+               		</tr>
+					{/foreach}
+                    
+                </tbody>
+                
+</table>
+<div style="display:none">
+<select id="rights_select">
+	<option value="0">{DEFAULT_RIGHTS_GROUP}</option>
+	{foreach($rights as $r)}
+	<option value="{$r.rights_id}">{$r.name}</option>
+	{/foreach}
+</select>
+</div>

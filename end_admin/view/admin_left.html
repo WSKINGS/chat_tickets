@@ -1,0 +1,9 @@
+<div class="module">
+	<h2></h2>
+	<ul class="admin-left">
+		<li {if($_GET['p'] == 'admin')}class="on"{/if}><a href="admin.php?p=admin">{ADMINS}</a></li>
+		<?php if($_SESSION['login_user']['allowed_controllers']['rights']){?>
+        <li {if($_GET['p'] == 'rights')}class="on"{/if}><a href="admin.php?p=rights">{ROLES}</a></li>
+		<?php }?>
+    </ul>
+</div>

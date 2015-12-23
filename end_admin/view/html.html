@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='main'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left'>
+    	<div style="margin:10px;margin-top:30px;">
+        	<ul>
+
+            </ul>
+        </div>
+    </div>
+    <div id='maindiv'>
+    	<div class="description">
+			{$page_description}
+        </div>
+        
+        {if($err_msg)}
+        <div class="err_msg pad">
+        	{$err_msg}
+        </div>
+        {/if}
+        
+        {if($success_msg)}
+        <div class="success_msg pad">
+        	{$success_msg}
+        </div>
+        {/if}
+        <div class="real_content">
+       		
+			<!-- div style="margin:10px;">
+				<input type="button" onclick="make_pop_soft()" value="{MAKE_POP_SOFT}" />
+				<div id="make_pop_soft_response"></div>
+			</div -->
+			
+			<!-- div style="margin:10px;">
+				<input type="button" onclick="make_soft_download()" value="生成Software Download部分" />
+				<div id="make_soft_download_response"></div>
+			</div>
+			<div style="margin:10px;">
+				<input type="button" onclick="make_pop_search()" value="生成popular search部分" />
+				<div id="make_pop_search_content" style="display:none;margin:10px;">
+					<textarea id='pop_search_content' style="width:400px;height:200px;">{$pop_search_content}</textarea><br />
+					<input type="button" onclick="save_pop_search();return false;" value="提交" /> <input type="button" onclick="make_pop_search()" value="关闭" />
+				</div>
+				<div id="make_pop_search_response"></div>
+			</div -->
+			<div style="margin:10px;">
+				<input type="button" onclick="make_index()" value="{MAKE_INDEX}" /> 
+				<div id="make_index_response"></div>
+			</div>
+			<div style="margin:10px;">
+				<input type="button" onclick="make_category()" value="{MAKE_CATEGORY}" />
+				<div id="make_category_response"></div>
+			</div>
+			<div style="margin:10px;">
+				<h3>内容页</h3>
+				每次生成页面数:<input type="text" id="pages_per_time" size="5" value="10" /> <input type="button" onclick="make_item()" value="生成内容页" />
+				<div id="make_item_response"></div>
+			</div>
+			<div style="margin:10px;">
+							<input type="button" onclick="make_sitemap()" value="生成Sitemap" />
+							<div id="make_sitemap_response"></div>
+						</div>
+			<!-- div style="margin:10px;">
+				<input type="button" onclick="make_directory()" value="生成Directory页面" /> 
+				<div id="make_directory_response"></div>
+			</div -->
+        </div>
+        <br />
+    </div>
+</div>
+<script>
+
+make_sitemap = function()
+{
+	$('#make_sitemap_response').load("html.php?p=html&make=sitemap");
+}
+make_index = function()
+{
+	$('#make_index_response').load("html.php?p=html&make=index");
+}
+make_category = function()
+{
+	$('#make_category_response').html('making...');
+	$('#make_category_response').load("html.php?p=html&make=category");
+}
+make_directory = function()
+{
+	$('#make_directory_response').html("making...");
+	window.qtotal = parseInt('{$total_item_num}');
+	window.qtimes = Math.ceil(total/pertime);
+	window._time = 0;
+	window.made = 0;
+	window.total_used_time = 0.000;
+	$.post("html.php?p=html&make=directory&q=0",{ },make_directory_callback);
+}
+function make_directory_callback(s)
+{
+	if (s)
+	{
+		var arr = s.split(',');
+		window.made+= parseInt(arr[0]);
+		window.total_used_time+=parseFloat(arr[1]);
+		window.total_used_time = Math.round(window.total_used_time*1000)/1000.0;
+		$('#make_directory_response').html("making...("+window.made+'/'+window.total+")<br />time used:"+window.total_used_time+'s');
+	}
+	window._time++;
+	if (window._time < window.times)
+		$.post("html.php?p=html&make=item&pertime="+pertime+'&time='+window._time,{ },make_item_callback);
+	else
+		$('#make_item_response').html("done ("+window.made+'/'+window.total+")<br />time used:"+window.total_used_time+'s');
+}
+make_item = function()
+{
+	window.total = parseInt('{$total_item_num}');
+	window.pertime = parseInt($('#pages_per_time').val());
+	window.times = Math.ceil(total/pertime);
+	window._time = 0;
+	window.made = 0;
+	window.total_used_time = 0.000;
+	$('#make_item_response').html("making...");
+	$.post("html.php?p=html&make=item&pertime="+pertime+'&time='+0,{ },make_item_callback);
+}
+function make_item_callback(s)
+{
+	if (s)
+	{
+		var arr = s.split(',');
+		window.made+= parseInt(arr[0]);
+		window.total_used_time+=parseFloat(arr[1]);
+		window.total_used_time = Math.round(window.total_used_time*1000)/1000.0;
+		$('#make_item_response').html("making...("+window.made+'/'+window.total+")<br />time used:"+window.total_used_time+'s');
+	}
+	window._time++;
+	if (window._time < window.times)
+		$.post("html.php?p=html&make=item&pertime="+pertime+'&time='+window._time,{ },make_item_callback);
+	else
+		$('#make_item_response').html("done ("+window.made+'/'+window.total+")<br />time used:"+window.total_used_time+'s');
+}
+make_pop_soft = function()
+{
+	$('#make_pop_soft_response').load("html.php?p=html&make=more_pop_soft");
+}
+make_soft_download = function()
+{
+	$('#make_soft_download_response').load("html.php?p=html&make=soft_download");
+}
+make_pop_search = function()
+{
+	$('#make_pop_search_content').slideToggle();
+}
+save_pop_search = function()
+{
+	$.post('html.php?p=html&make=pop_search',{ content:$('#pop_search_content').val() },function(s)
+	{
+		$('#make_pop_search_response').html(s);
+	});
+}
+</script>
+
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

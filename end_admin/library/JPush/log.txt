@@ -1,0 +1,115 @@
+﻿211  2013-01-18 18:21:36
+{\"sendno\":\"4\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 18:22:05
+{\"sendno\":\"1\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:26:30
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:29:11
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:29:58
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:32:31
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:34:30
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:35:15
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:37:34
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:37:41
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:40:29
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:44:28
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 19:48:00
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:18:47
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:30:40
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:44:44
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:49:57
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:54:35
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:57:10
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:58:32
+{\"sendno\":\"2\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 20:59:44
+{\"sendno\":\"10\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 21:03:35
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 21:05:47
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 21:05:57
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 21:06:01
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 21:07:04
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-18 21:07:35
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":0 }  2013-01-21 09:21:07
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":0 }  2013-01-21 09:22:44
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":0 }  2013-01-21 09:23:43
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":0 }  2013-01-21 09:28:12
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":0 }  2013-01-21 09:31:24
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":0 }  2013-01-21 10:38:18
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:10:22
+{\"sendno\":\"7\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:20:07
+{\"sendno\":\"18\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:21:15
+{\"sendno\":\"19\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:25:10
+{\"sendno\":\"20\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:38:54
+{\"sendno\":\"20\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:44:00
+{\"sendno\":\"20\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:47:53
+{\"sendno\":\"21\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:49:38
+{\"sendno\":\"21\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 11:57:26
+{\"sendno\":\"21\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:00:48
+{\"sendno\":\"22\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:04:32
+{\"sendno\":\"1\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:04:54
+{\"sendno\":\"24\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:05:41
+{\"sendno\":\"25\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:07:46
+{\"sendno\":\"26\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:12:17
+{\"sendno\":\"27\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:19:42
+{\"sendno\":\"28\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:20:47
+{\"sendno\":\"29\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 12:40:51
+{\"sendno\":\"30\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 13:17:47
+211  2013-01-21 13:46:25
+211  2013-01-21 13:47:15
+{\"sendno\":\"31\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 13:49:04
+{\\\"sendno\\\":\\\"31\\\",\\\"errcode\\\":0, \\\"errmsg\\\":\\\"\\\" , \\\"total_user\\\":2, \\\"send_cnt\\\":1 }  2013-01-21 13:49:49
+{\\\"sendno\\\":\\\"31\\\",\\\"errcode\\\":0, \\\"errmsg\\\":\\\"\\\" , \\\"total_user\\\":2, \\\"send_cnt\\\":1 }  2013-01-21 13:51:21
+{\"sendno\\\":\\\"31\",\\\"errcode\\\":0, \\\"errmsg\\\":\\\"\\\" , \\\"total_user\\\":2, \\\"send_cnt\\\":1 }  2013-01-21 13:52:34
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 13:53:31
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 13:54:34
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 13:55:51
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 13:57:17
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 13:57:20
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 13:57:32
+{\"sendno\":\"32\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 13:58:00
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 14:00:16
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 14:03:14
+{\"sendno\":\"31\",\"errcode\":0,\"errmsg\":\"1212\",\"total_user\":2,\"send_cnt\":1}  2013-01-21 14:04:26
+  2013-01-21 14:05:38
+  2013-01-21 14:06:46
+  2013-01-21 14:06:52
+  2013-01-21 14:06:53
+  2013-01-21 14:06:53
+  2013-01-21 14:06:54
+  2013-01-21 14:08:56
+{\"sendno\":\"33\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:09:08
+{\"sendno\":\"34\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:12:40
+{\"sendno\":\"37\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:19:38
+  
+{\"sendno\":\"38\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:21:50
+Array{\"sendno\":\"39\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:23:31
+send_cnt=
+{\"sendno\":\"40\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:27:29
+Array1dad03ee5308c4eed680e920{\"sendno\":\"41\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:31:40
+
+your parameter is no an array.
+{\"sendno\":\"42\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:35:01
+查看结果：
+is not an array  2013-01-21 14:35:01
+{\"sendno\":\"43\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:39:41
+查看结果：
+is not an array  2013-01-21 14:39:41
+{\"sendno\":\"44\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:41:17
+查看结果：
+is not an array  2013-01-21 14:41:17
+去转义前：{\"sendno\":\"45\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:43:16
+去转义后：{"sendno":"45","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:43:16
+去转义前：{\"sendno\":\"46\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:44:02
+去转义后：{"sendno":"46","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:44:02
+{"sendno":"46","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:44:02
+is an array  2013-01-21 14:44:02
+去转义前：{\"sendno\":\"47\",\"errcode\":0, \"errmsg\":\"\" , \"total_user\":2, \"send_cnt\":1 }  2013-01-21 14:45:46
+去转义后：{"sendno":"47","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:45:46
+{"sendno":"47","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:45:46
+total_user:2  2013-01-21 14:45:46
+{"sendno":"48","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:48:00
+{"sendno":"1","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:50:47
+{"sendno":"50","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:50:49
+{"sendno":"51","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:51:43
+{"sendno":"52","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:52:35
+{"sendno":"53","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:52:39
+{"sendno":"54","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:52:45
+{"sendno":"55","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:52:51
+{"sendno":"56","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:52:53
+{"sendno":"57","errcode":0, "errmsg":"" , "total_user":2, "send_cnt":1 }  2013-01-21 14:52:56

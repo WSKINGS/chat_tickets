@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='maindiv'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left'>
+    	<div id="admin_left_b">
+	    	<div class="module">
+	        	<h2></h2>
+				<div>
+					
+				</div>
+	        </div>
+		</div>
+    </div>
+    <div id='main'>
+    	<div id="main_b">
+			<div id="position">
+				{CURRENT_POSITION}: {POSITION} 
+			</div>
+	        <div id="admin_content">
+	          <form action="admin.php?m=edit&p=account" method="post" onsubmit="return false;" >
+	              <table class="form-table">
+					<tr>
+	                	<td>{USER_NAME}</td>
+	                	<td>{$admin.name}</td>
+	               	</tr>
+					<tr>
+	                	<td valign="top">{CURRENT_PASSWORD}</td>
+	                    <td><input type="password" class="inputtext" maxlength=200 name="old_password" /></td>
+	                </tr>
+	                <tr>
+	                	<td valign="top">{NEW_PASSWORD}</td>
+	                    <td><input type="password" class="inputtext" maxlength=200 name="password" id='password' />{IF_NOT_CHANGE}</td>
+	                </tr>
+          
+	                <tr>
+	                	<td valign="top">{USER_PASSWORD_CONFIRM}</td>
+	                    <td><input type="password" class="inputtext" maxlength=200 name="password2" id='password2' />{IF_NOT_CHANGE}</td>
+	                </tr>
+	            	
+                
+	                <tr>
+	                	<td colspan="2" align="center"><input type="submit" value="{USER_SUBMIT}" onclick="check_form(); return false;" />&nbsp;&nbsp;<span  style="background-color:#ffff99;padding:3px;display:none" id='notice_span'>{CHANGES_SAVED}</span></td>
+	                </tr>
+	             </table>
+	           </form>
+	        </div>
+		</div>
+    </div>
+	<div style="clear:both;"></div>
+</div>
+
+<script>
+function check_form()
+{
+	
+	if ($_('password').value != $_('password2').value)
+	{
+		alert('{PASSWORD_NOT_THE_SAME}');
+		return false;
+	}
+	commit_form();
+	return false;
+}
+
+function commit_form()
+{
+	$('[type=submit]').attr('disabled','disabled');
+	$.post('admin.php?p=account&m=update_password',
+	{
+		old_password:$('[name=old_password]').val(),
+		password: $('[name=password]').val()
+	}, submit_callback);
+}
+
+function submit_callback(s)
+{
+	$('#notice_span').html(s).fadeIn('fast');
+	$('[type=submit]').removeAttr('disabled');
+	setTimeout("$('#notice_span').fadeOut('slow');",5000);
+}
+</script>
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!-- INCLUDE header.html -->
+<div class="book-container">
+  <div class="header">
+    <p class="text-right"><button type="button" class="btn btn-link" data-toggle="modal" data-target="#certificate"><?php echo $texts['manage_tickets']; ?></button></p>
+  </div>
+  <div class="navi text-center">
+      <span class="navi-item current-item pull-left"><?php echo $texts['choose_ticket']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item next-item pull-left"><?php echo $texts['submit_info']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item next-item pull-left"><?php echo $texts['wait_for_payment']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item next-item pull-left"><?php echo $texts['book_suceed']; ?></span>
+  </div>
+  <form id="tickets_form" method="POST">
+    <div class="content">
+      <div class="ticket-div">
+        <table class="table table-condensed ticket-table">
+          <thead>
+            <tr>
+              <th class="col-md-7"><?php echo $texts['ticket']; ?></th>
+              <th class="col-md-2"><?php echo $texts['end_time']; ?></th>
+              <th class="col-md-2"><?php echo $texts['price']; ?></th>
+              <th class="col-md-1"><?php echo $texts['quantity']; ?></th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($tickets as $ticket) : ?>
+            <tr>
+              <td>
+                <div class="name">
+                <?php echo $ticket['name'][$lang]; ?>
+                <?php if ($ticket['need_approve'] == '1') : ?>
+                  <span class="star-mark text-danger"><strong> * </strong></span>
+                <?php endif; ?>
+                </div>
+                <div class="description text-muted"><small>
+                <?php echo str_ireplace('&nbsp;', ' ', $ticket['description'][$lang]); ?>  
+                </small></div>
+              </td>
+              <td>
+                <div class="date">
+                  <?php echo $ticket['end_time']; ?>
+                </div>
+              </td>
+              <td>
+                <div class="price">
+                  <span class="money"><?php echo $ticket['price']; ?></span>
+                </div>
+              </td>
+              <td>
+                <select id="ticket_id_<?php echo $ticket['type_id']; ?>" name="ticket[<?php echo $ticket['type_id']; ?>]" class="input-mini quantity" onchange="show_price(<?php echo $ticket['type_id']; ?>)">
+                  <?php for ($i=0; $i <= $ticket['buy_max']; $i++) : ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i ?></option>
+                  <?php endfor; ?>
+                </select>
+                <span class="span_quantity" style="font-weight: bold; display: none;" id="span_ticket_id_<?php echo $ticket['type_id']; ?>"></span>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="invoice">
+         <div class="checkbox">
+          <label class="pull-right">
+            <input id="need_invoice" name="need_invoice" type="checkbox" > <?php echo $texts['need_invoice']; ?>
+          </label>
+        </div>
+      </div>
+      <div class="explain">
+        <p class="text-danger"><strong> * </strong><?php echo $texts['star_ticket_explain']; ?></p>
+      </div>
+      <div class="agree_law">
+        <div class="checkbox">
+          <label class="text-danger">
+            <input id="agree_check" type="checkbox" checked="checked"><?php echo $texts['agree_law']; ?>
+          </label>
+        </div>
+      </div>
+      <div class="">
+        <div class="amount-bg text-right">
+        <strong>
+        <?php echo $texts['amount']; ?><span class="amount money">0</span>
+        </strong>
+        </div>
+      </div>
+      <div class="text-right">
+        <button id="next" type="submit" class="btn btn-primary" disabled="disabled"><?php echo $texts['next_button']; ?></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="law_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="width:800px;">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+        <!-- <h4 class="modal-title" id="myModalLabel"><?php // echo $texts['register_law_name']; ?></h4> -->
+      <!-- </div> -->
+      <div class="modal-body">
+        <?php echo $clause; ?>
+      </div>
+      <div class="modal-footer"><!-- 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo $texts['button_agree']; ?></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Certificate Modal -->
+<div class="modal fade" id="certificate" tabindex="-1" role="dialog" aria-labelledby="certificateLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="certificateLabel"><?php echo $texts['certificate_title'] ?></h4>
+      </div>
+      <div class="modal-body">
+        <form id="certificate_form" method="POST" class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="email" class="col-sm-4 control-label"><?php echo $texts['certificate_contact_email']; ?></label>
+            <div class="col-sm-6">
+              <input type="email" class="form-control required" id="email" name="email" placeholder="<?php echo $texts['certificate_contact_email']; ?>" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="certificate_number" class="col-sm-4 control-label"><?php echo $texts['certificate_number']; ?></label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control required" id="certificate_number" name="certificate_number" placeholder="<?php echo $texts['certificate_number']; ?>" required>
+              <span class="help-block"><?php echo $texts['certificate_number_explain'] ?></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-6">
+              <button type="submit" class="btn btn-primary"><?php echo $texts['certificate_button']; ?></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- include script.html -->
+<script type="text/javascript">
+function get_price(tid, quantity) {
+  $jqxhr = $.get("?p=book_jquery&activity=<?php echo $activity_id; ?>&do=get_price&ticket="+tid+"&quantity="+quantity, 
+    function(s) {
+      var ret = $.parseJSON(s);
+      if (ret.r == 'ok') {
+        $('.amount').html(money_format(ret.msg));
+      }
+      else {
+        alert(ret.msg);
+      }
+    })
+    .fail( function() {
+      alert('Get price error.');
+    });
+}
+
+function show_price(tid)
+{
+  var quantity = $("#ticket_id_"+tid).val();
+
+  if ( $("#ticket_id_"+tid).val() !== "0")
+  {
+    $(".quantity").each(function(i) 
+    {
+      if ($(this).val() === "0")
+      {
+        $("#span_"+$(this).attr("id")).html($(this).val());
+        $("#span_"+$(this).attr("id")).css("display","block");
+        $(this).attr("readonly", "readonly");
+        $(this).css("display","none");
+      }
+    });
+  }
+  else
+  {
+    $(".quantity").removeAttr("readonly");
+    $(".quantity").css("display","block");
+    $(".span_quantity").css("display","none");
+  }
+
+  get_price(tid, quantity);
+}
+
+function agree_check() {
+  if ($("#agree_check").is(":checked"))
+  {
+    $("#next").removeAttr("disabled");
+  }
+  else
+  {
+    $("#next").attr("disabled","disabled");
+  }
+}
+
+function get_quantity()
+{
+  var nodes = $(".quantity");
+
+  for (var i=0; i < nodes.length; i++) 
+  {
+    if (nodes[i].value !== "0")
+    {
+      return parseInt(nodes[i].value);
+    }
+  }
+  return 0;
+}
+
+$(function() {
+  $("#law_modal").modal({
+  //是否弹窗条款
+      show: true,
+      keyboard: false,
+      backdrop: 'static'
+  });
+
+  $('.money').each( function() {
+    $(this).html(money_format($(this).html()));
+  });
+
+  agree_check();
+  $('#agree_check').click( function() {
+    agree_check();
+  });
+
+  $("#tickets_form").submit(function(evt) {
+    evt.preventDefault();
+
+    if (get_quantity() === 0) {
+      alert('<?php echo $texts['choose_ticket_alert']; ?>');
+
+      return false;
+    }
+
+    var data;
+    data = $(this).serialize();
+
+    $.post("?p=book_jquery&activity=<?php echo $activity_id; ?>&do=check_ticket&lang=<?php echo $lang; ?>&channel=<?php echo $channel; ?>",data,function(s) {
+      var ret = $.parseJSON(s);
+        if (ret.r == 'ok') {
+          window.location.href = ret.msg;
+        }
+        else if (ret.r == 'error') {
+          alert(ret.msg);
+        }
+      },'text');
+  });
+
+  $("#certificate_form").submit(function(evt) {
+    evt.preventDefault();
+
+    var data;
+    data = $(this).serialize();
+
+    $.post("?p=book_jquery&do=certificate&activity=<?php echo $activity_id ?>&lang=<?php echo $lang; ?>&channel=<?php echo $channel; ?>",data,function(s) {
+      var ret = $.parseJSON(s);
+        if (ret.r == 'ok') {
+         window.location.href = ret.msg;
+        }
+        else if (ret.r == 'error') {
+          mark_blank_input();
+          alert(ret.msg);
+        }
+      },'text');
+  });
+});
+
+</script>
+<!-- include footer.html -->

@@ -1,0 +1,27 @@
+admin_module=后台模块
+admin_system_config=系统设置
+admin_cat_name = 栏目名
+
+admin_page=页面
+page_name=页面名字
+page_title=页面标题
+page_description=页面描述
+page_keywords=关键词
+page_content=内容
+update_time=更新时间
+fragment=内容片段
+link=链接
+target_window=目标窗口
+target_self=本窗口
+target_blank=新窗口
+folder=目录
+content=内容
+
+categories=栏目
+Contents=内容
+Change_password=修改密码
+administrators=管理员
+Configuration=系统设置
+Extensions=扩展
+Upload_Files=附件上传
+Role_and_ACL=权限控制

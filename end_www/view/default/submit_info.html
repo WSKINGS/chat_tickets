@@ -1,0 +1,451 @@
+<!-- INCLUDE header.html -->
+<div class="book-container">
+  <div class="navi">
+      <span class="navi-item previous-item pull-left"><?php echo $texts['choose_ticket']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item current-item pull-left"><?php echo $texts['submit_info']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item next-item pull-left"><?php echo $texts['wait_for_payment']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item next-item pull-left"><?php echo $texts['book_suceed']; ?></span>
+  </div>
+  <div class="content">
+    <form id="info_form" method="POST" role="from">
+	<!-- 2015年1月22日 王帅 head中添加label标签加粗  小类型由label改为span 不加粗 -->
+      <div class="content-block">
+        <div class="block-header">
+          <h4><label><?php echo $texts['contact_info']; ?><label><small class='text-danger'><?php echo $texts['required_explain']; ?></small></h4>
+        </div>
+        <div class="block-body">
+          <div class="description text-warning">
+            <?php echo $texts['contact_info_warning']; ?>
+          </div>
+          <div class="body-content">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <span for="contact_name"><?php echo $texts['contact_name']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                  <input type="text" class="form-control input-sm required" id="contact_name" name="contact_name" placeholder="<?php echo $texts['contact_name']; ?>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+              <?php if ($_GET['need_invoice'] == '1') : ?>
+                <div class="form-group">
+                  <span for="invoice_title"><?php echo $texts['invoice_title']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                  <input type="text" class="form-control input-sm required" id="invoice_title" name="invoice_title" placeholder="<?php echo $texts['invoice_title']; ?>" required>
+                </div>
+              <?php endif; ?>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <span for="contact_email"><?php echo $texts['contact_email']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                  <input type="email" class="form-control input-sm required" id="contact_email" name="contact_email" placeholder="<?php echo $texts['contact_email']; ?>" required>
+                  <span class="help-block"><p class="text-danger"><?php echo $texts['contact_email_explain']; ?></p></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <span for="contact_phone"><?php echo $texts['contact_phone']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                  <div>
+                    <span class="pull-left herizon-span">+</span>
+                    <span class="pull-left col-md-4">
+                      <input type="text" class="form-control input-sm required" id="contact_phone_country_code" name="contact_phone[country_code]" placeholder="<?php echo $texts['country_code']; ?>" required>
+                    </span>
+                    <span class="pull-left herizon-span">-</span>
+                    <span class="pull-left col-md-7">
+                      <input type="text" class="form-control input-sm required" id="contact_phone_phone_number" name="contact_phone[number]" placeholder="<?php echo $texts['telephone_number']; ?>" required>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-block">
+        <div class="block-header">
+          <h4><label><?php echo $texts['company_info']; ?><label><small class='text-danger'><?php echo $texts['required_explain']; ?></small></h4>
+        </div>
+        <div class="block-body">
+          <div class="body-content">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label" for="company_field_id"><?php echo $texts['company_field']; ?><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <select class="form-control input-sm" id="company_field_id" name="company_field_id">
+                    <?php foreach ($company_fields as $field) : ?>
+                      <option value="<?php echo $field['option_id'] ?>"><?php echo $field['name'][$lang]; ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-7">
+                  <span><?php echo $texts['company_name']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label" for="company_name_zh"><?php echo $texts['chinese']; ?><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-sm required" id="company_name_zh" name="company_name[zh]" placeholder="<?php echo $texts['company_name_chinese_blur']; ?>" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label" for="company_name_en"><?php echo $texts['english']; ?><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-sm required" id="company_name_en" name="company_name[en]" placeholder="<?php echo $texts['english']; ?>" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label" for="company_address"><?php echo $texts['company_address']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <span class="pull-left col-md-4">
+                      <input type="text" class="form-control input-sm required" id="company_address_country" name="company_address[country]" placeholder="<?php echo $texts['company_address_country']; ?>" required>
+                    </span>
+                    <span class="pull-left col-md-4">
+                      <input type="text" class="form-control input-sm required" id="company_address_province" name="company_address[province]" placeholder="<?php echo $texts['company_address_province']; ?>" required>
+                    </span>
+                    <span class="pull-left col-md-4">
+                      <input type="text" class="form-control input-sm required" id="company_address_city" name="company_address[city]" placeholder="<?php echo $texts['company_address_city']; ?>" required>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-sm required" id="company_address_details" name="company_address[details]" placeholder="<?php echo $texts['company_address_holder']; ?>" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label" for="company_zipcode"><?php echo $texts['zipcode']; ?><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-sm" id="company_zipcode" name="company_zipcode" placeholder="<?php echo $texts['zipcode']; ?>">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label"><?php echo $texts['office_phone']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-7">
+                  <span class="pull-left herizon-span">+</span>
+                  <span class="pull-left col-md-3">
+                    <input type="text" class="form-control input-sm required" id="company_phone_country_code" name="company_phone[country_code]" placeholder="<?php echo $texts['country_code']; ?>" required>
+                  </span>
+                  <span class="pull-left herizon-span">-</span>
+                  <span class="pull-left col-md-3">
+                    <input type="text" class="form-control input-sm required" id="company_phone_city_code" name="company_phone[city_code]" placeholder="<?php echo $texts['city_code']; ?>" required>
+                  </span>
+                  <span class="pull-left herizon-span">-</span>
+                  <span class="pull-left col-md-4">
+                    <input type="text" class="form-control input-sm required" id="company_phone_number" name="company_phone[number]" placeholder="<?php echo $texts['office_phone_holder']; ?>" required>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label"><?php echo $texts['fax']; ?><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-7">
+                  <span class="pull-left herizon-span">+</span>
+                  <span class="pull-left col-md-3">
+                    <input type="text" class="form-control input-sm" id="company_fax_country_code" name="company_fax[country_code]" placeholder="<?php echo $texts['country_code']; ?>">
+                  </span>
+                  <span class="pull-left herizon-span">-</span>
+                  <span class="pull-left col-md-3">
+                    <input type="text" class="form-control input-sm" id="company_fax_city_code" name="company_fax[city_code]" placeholder="<?php echo $texts['city_code']; ?>">
+                  </span>
+                  <span class="pull-left herizon-span">-</span>
+                  <span class="pull-left col-md-4">
+                    <input type="text" class="form-control input-sm" id="company_fax_number" name="company_fax[number]" placeholder="<?php echo $texts['fax']; ?>">
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="herizon-label" for="company_website"><?php echo $texts['website']; ?><?php echo $texts['colon']; ?></span>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-sm" id="company_website" name="company_website" placeholder="<?php echo $texts['website']; ?>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php for ($i = 0; $i < $attendee_form_number; $i++) : ?>
+        <div class="content-block">
+          <div class="block-header">
+            <h4><label><?php echo $texts['attendee_info']." ".($i+1); ?></label><small class='text-danger'><?php echo $texts['required_explain']; ?></small></h4>
+          </div>
+          <div class="block-body">
+            <div class="description text-warning">
+              <?php echo $texts['attendee_info_warning']; ?>
+            </div>
+            <div class="body-content">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <span><?php echo $texts['attendee_name']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="pull-left col-md-3">
+                        <span class="herizon-label" for="attendee_<?php echo $i; ?>_name_zh"><?php echo $texts['chinese']; ?></span>
+                      </span>
+                      <span class="pull-left col-md-9">
+                        <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_name_zh" name="attendee[<?php echo $i; ?>][name][zh]" placeholder="<?php echo $texts['attendee_name_chinese_blur']; ?>" onblur="on_bind(<?php echo $i ?>)" required>
+                      </span>
+                    </div>
+                    <div class="row">
+                      <span class="pull-left col-md-3">
+                        <span class="herizon-label" for="attendee_<?php echo $i; ?>_name_en"><?php echo $texts['english']; ?></span>
+                      </span>
+                      <span class="pull-left col-md-9">
+                        <div class="row">
+                          <span class="pull-left col-md-5">
+                            <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_name_en_firstname" name="attendee[<?php echo $i; ?>][name][en][firstname]" placeholder="<?php echo $texts['attendee_first_name']; ?>" onblur="on_bind_enname(<?php echo $i ?>)" required>
+                          </span>
+                          <span class="pull-left herizon-span">-</span>
+                          <span class="pull-left col-md-5">
+                            <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_name_en_lastname" name="attendee[<?php echo $i; ?>][name][en][lastname]" placeholder="<?php echo $texts['attendee_last_name']; ?>" onblur="on_bind_enname(<?php echo $i ?>)" required>
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <span><?php echo $texts['attendee_title']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="pull-left col-md-3">
+                        <span class="herizon-label" for="attendee_<?php echo $i; ?>_title_zh"><?php echo $texts['chinese']; ?></span>
+                      </span>
+                      <span class="pull-left col-md-9">
+                        <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_title_zh" name="attendee[<?php echo $i; ?>][title][zh]" placeholder="<?php echo $texts['chinese']; ?>" required>
+                      </span>
+                    </div>
+                    <div class="row">
+                      <span class="pull-left col-md-3">
+                        <span class="herizon-label" for="attendee_<?php echo $i; ?>_title_en"><?php echo $texts['english']; ?></span>
+                      </span>
+                      <span class="pull-left col-md-9">
+                          <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_title_en" name="attendee[<?php echo $i; ?>][title][en]" placeholder="<?php echo $texts['english']; ?>" required>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="row">
+                      <span class="col-md-3">
+                        <span class="herizen-label" for="attendee_<?php echo $i; ?>_email"><?php echo $texts['attendee_email']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                      </span>
+                      <span class="col-md-9">
+                        <input type="email" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_email" name="attendee[<?php echo $i; ?>][email]" placeholder="<?php echo $texts['attendee_email']; ?>" required>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <span class="herizon-label"><?php echo $texts['attendee_telephone']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                      </div>
+                      <div class="col-md-9">
+                        <span class="pull-left herizon-span">+</span>
+                        <span class="pull-left col-md-4">
+                          <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_telephone_country_code" name="attendee[<?php echo $i; ?>][telephone][country_code]" placeholder="<?php echo $texts['country_code']; ?>" required>
+                        </span>
+                        <span class="pull-left herizon-span">-</span>
+                        <span class="pull-left col-md-7">
+                          <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_telephone_number" name="attendee[<?php echo $i; ?>][telephone][number]" placeholder="<?php echo $texts['telephone_number']; ?>" required>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <span class="herizon-label"><?php echo $texts['attendee_phone']; ?><span class="text-danger"> * </span><?php echo $texts['colon']; ?></span>
+                      </div>
+                      <div class="col-md-9">
+                        <span class="pull-left herizon-span">+</span>
+                        <span class="pull-left col-md-4">
+                          <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_phone_country_code" name="attendee[<?php echo $i; ?>][phone][country_code]" placeholder="<?php echo $texts['country_code']; ?>" required>
+                        </span>
+                        <span class="pull-left herizon-span">-</span>
+                        <span class="pull-left col-md-3">
+                          <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_phone_city_code" name="attendee[<?php echo $i; ?>][phone][city_code]" placeholder="<?php echo $texts['city_code']; ?>" required>
+                        </span>
+                        <span class="pull-left herizon-span">-</span>
+                        <span class="pull-left col-md-4">
+                          <input type="text" class="form-control input-sm required" id="attendee_<?php echo $i; ?>_phone_city_code" name="attendee[<?php echo $i; ?>][phone][number]" placeholder="<?php echo $texts['attendee_phone_holder']; ?>" required>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+				  
+				  <!-- ### wangshuai noted, hide the hotel information  -->
+                  <div class="form-group">
+                    <div>
+                      <label><?php echo $texts['attendee_select_1']; ?></label>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label class="radio-inline">
+                          <input type="radio" name="attendee[<?php echo $i; ?>][extra_info][need_room]" value="1" checked /><?php echo $texts['attendee_select_1_option_1']; ?>
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="attendee[<?php echo $i; ?>][extra_info][need_room]" value="-1" /><?php echo $texts['attendee_select_1_option_2']; ?>
+                        </label>
+                      </div>
+                      <div class="col-md-6">
+                        <!--?php echo $texts['attendee_select_extra']; ?-->
+                      </div>
+                    </div>
+					<div class="row">
+                        <div class="col-md-10">
+							<br/>
+							<?php echo $texts['attendee_select_extra']; ?>
+						</div>
+                    </div>
+                  </div>
+				  <!-- #### other questions added by wangshuai @ 20150303 -->
+				  <!--div class="form-group">
+                    <div>
+                      <label><?php echo $texts['attendee_select_2']; ?></label>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label class="radio-inline">
+                          <input type="radio" name="attendee[<?php echo $i; ?>][extra_info][attend_14]" value="1" checked /><?php echo $texts['attendee_select_1_option_1']; ?>
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="attendee[<?php echo $i; ?>][extra_info][attend_14]" value="-1" /><?php echo $texts['attendee_select_1_option_2']; ?>
+                        </label>
+                      </div>
+                      <div class="col-md-6">
+                        <?php /*echo $texts['attendee_select_extra'];*/ ?>
+                      </div>
+                    </div>
+                  </div-->
+				
+				  <!--#### end ####-->
+                </div>
+                <div class="col-md-4">
+                  <div class="badge-example text-center">
+                    <div class="title">
+                      <?php echo $texts['badge_description']; ?>
+                    </div>
+                    <div id="" class="badge-name badge-name-zh badge_name_<?php echo $i; ?>_zh">
+                    </div>
+                    <div id="" class="badge-name badge-name-en badge_name_<?php echo $i; ?>_en"></div>
+                    <div id="" class="badge-company-first badge-company-zh badge-company badge_company_name_zh">
+                    </div>
+                    <div id="" class="badge-company badge-company-en badge_company_name_en">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endfor; ?>
+      <div class="text-center">
+        <button id="cancel_book" type="button" class="btn btn-default"><?php echo $texts['cancel_booking']; ?></button>
+        <button id="submit_book" type="submit" class="btn btn-primary"><?php echo $texts['submit']; ?></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- include script.html -->
+<script type="text/javascript">
+function bind_data(data, str) {
+  $(str).html(data);
+}
+
+function on_bind(num) {
+  var data = $("#attendee_"+num+"_name_zh").val();
+  bind_data(data, ".badge_name_"+num+"_zh");
+}
+
+function on_bind_enname(num) {
+  var firstname = $("#attendee_"+num+"_name_en_firstname").val();
+  var lastname = $("#attendee_"+num+"_name_en_lastname").val();
+
+  var data = firstname+" "+lastname;
+
+  bind_data(data, ".badge_name_"+num+"_en");
+}
+
+$(function () {
+  $("#company_name_zh").blur(function() {
+    var data = $(this).val();
+    bind_data(data, ".badge_company_name_zh");
+  });
+  $("#company_name_en").blur(function() {
+    var data = $(this).val();
+    bind_data(data, ".badge_company_name_en");
+  });
+
+  $("#cancel_book").click(function() {
+    if(confirm("<?php echo $texts['cancel_confirm_text']; ?>")) {
+      window.location.href = '?p=ticket_choose&activity=<?php echo $activity_id ?>&lang=<?php echo $lang ?>&channel=<?php echo $channel ?>';
+    }
+  });
+
+  $("#info_form").submit(function(evt) {
+    evt.preventDefault();
+
+    $("#submit_book").attr("disabled","disabled").html("Load...");
+
+    var data;
+    data = $(this).serialize();
+    data += '&tickets[0][ticket_id]=<?php echo $ticket_id; ?>&tickets[0][quantity]=<?php echo $quantity; ?>&need_invoice=<?php echo $need_invoice; ?>';
+
+    $.post("?p=book_jquery&do=submit_info&activity=<?php echo $activity_id ?>&channel=<?php echo $channel; ?>&lang=<?php echo $lang; ?>",data,function(s) {
+      var ret = $.parseJSON(s);
+        if (ret.r == 'ok') {
+         window.location.href = ret.msg;
+        }
+        else if (ret.r == 'error') {
+          mark_blank_input();
+          alert(ret.msg);
+          $("#submit_book").removeAttr("disabled").html("<?php echo $texts['submit']; ?>");
+        }
+      },'text');
+  });
+});
+</script>
+<!-- include footer.html

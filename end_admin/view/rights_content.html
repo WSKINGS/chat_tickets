@@ -1,0 +1,111 @@
+<script>
+$('#position').append(' &gt; {TITLE}');
+</script>
+{RIGHTS_GROUP}:{$this_group.name}<br />
+<a href="javascript:checkall()">{SELECT_ALL}</a>&nbsp;<a href="javascript:inverse()">{SELECT_INVERSE}</a>
+<form action="admin.php?p=rights&m=config&rights_id={$this_group.rights_id}" method="post">
+<table style="margin:10px;width:500px;" class="list_table" cellspacing="0">
+<?php $this_rights=$this_rights;?>
+{foreach($rights as $r)}
+<tr>
+	<td width="150">{$r.description}</td>
+	<td>
+	<?php foreach($r['rights'] as $right)
+	{
+		$this_name = $r['name'].'_'.$right;
+		?>
+	<input 
+		type="checkbox" 
+		right="action"
+		name="{$this_name}" 
+		id="{$this_name}" 
+		<?php if ($this_rights[$this_name]) {?>
+		checked="checked"
+		<?php }?>
+	><label for="{$this_name}"><?php 
+		$_n = 'LANG_'.strtoupper('rights_'.$right);
+		echo (defined($_n))?constant($_n):$right;
+	?></label>
+	<?php }?>
+	</td>
+</tr>
+{/foreach}
+</table>
+	<input type="checkbox" name="limit_category_id" onclick="change_slide(this)" id="limit_category_id"><label for="limit_category_id">{LIMIT_CATEGORY_ID}</label>
+
+	<br />
+	<div id="categories" style="display:none;margin:0 10px;">
+		<a href="javascript:;" onclick="$('[right=category]').attr('checked','checked');">{SELECT_ALL}</a> 
+		<a href="javascript:;" onclick="$('[right=category]').each(function(){ this.checked=!this.checked; });">{SELECT_INVERSE}</a>
+		<br />
+		{foreach($categories as $c)}
+		{print_space($c.depth)}
+		<input type="checkbox" onclick="check_rights_checked(this)" right="category" categoryid="{$c.category_id}" name="category_{$c.category_id}" depth="{$c.depth}" parentid="{$c.parent_id}"
+		id="category_{$c.category_id}" <?php
+		if ($this_rights['category_'.$c['category_id']])
+		{
+			echo 'checked="checked" ';
+			$some_checked = true;
+		}
+		?> />
+		<label for="category_{$c.category_id}">{$c.name}</label><br />
+		{/foreach}
+	</div>
+	<input type="submit" value="{SUBMIT}" />
+</form>
+
+<script>
+function check_rights_checked(o)
+{
+	o = $(o);
+	if (!o.get(0).checked) //如果取消，那么取消所有子分类
+	{
+		cancle_check(o);
+	}
+	else
+	{
+		while(parseInt(o.attr('depth')) > 0)
+		{
+			o = $('input[name=category_'+o.attr('parentid')+']').attr('checked','checked');
+		}
+	}
+}
+
+function cancle_check(tmp)
+{
+	tmp.removeAttr('checked').each(function()
+	{
+		cancle_check($('[input[parentid='+$(this).attr('categoryid')+']'));
+	});
+}
+
+$(function()
+{
+	<?php if ($some_checked) { ?>
+	$('#limit_category_id').trigger('click');
+	<?php }?>
+});
+function change_slide(o)
+{
+	if (o.checked)
+	{
+		$('#categories').slideDown();
+	}
+	else
+	{
+		$('#categories').slideUp();
+		$('[right=category]').attr('checked','');
+	}
+}
+function checkall()
+{
+	$('[right=action]').attr('checked','checked');
+}
+function inverse()
+{
+	$('[right=action]').each(function()
+	{
+		this.checked = !this.checked;
+	});
+}
+</script>

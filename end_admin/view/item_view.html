@@ -1,0 +1,105 @@
+<h3>{VIEW_ITEM_CONTENT}</h3>
+<table cellpadding="0" cellspacing="0" border="0" id="item_table" class="view_table">
+<?php
+
+/*
+根据配置生成编辑页面的各个显示字段
+*/
+	foreach($fields as $name=>$data)
+	{
+		if (preg_match('/^__/',$name)) continue;
+		echo "<tr><th>".$data['name'];
+		echo "</th>";
+		echo "<td>";
+		if (!$data['type'] ) $data['type'] = 'text';
+		//显示之前的预处理
+
+		if ($data['prefilter'] && function_exists($data['prefilter']))
+		{
+			$content[$name] = $data['prefilter']($content[$name]);
+		}
+		
+		//简单文字输入
+		if ($data['type'] == 'text')
+		{
+			echo $content[$name];
+		}
+		//复选框
+		elseif ($data['type'] == 'checkbox')
+		{
+			echo $content[$name];
+		}
+		//文件
+		elseif ($data['type'] == 'file')
+		{	
+			$t = $content[$name];
+			echo "<a href='$t' target='_blank'>$t</a>";
+		}
+		elseif ($data['type'] == 'filelist')
+		{	
+			$t = $content[$name];
+			$seperator = $data['seperator']?$data['seperator']:'|';
+			$arr = explode($seperator,$t);
+			foreach($arr as $t) echo "<a href='$t' target='_blank'>$t</a><br />";
+		}
+		//文件
+		elseif ($data['type'] == 'image')
+		{	
+			$t = $content[$name];
+			echo '<a href="'.$t.'" target="_blank"><img src="'.thumb($t,50,50).'" /></a>';
+		}
+		elseif ($data['type'] == 'imagelist')
+		{
+			$t = $content[$name];
+			$seperator = $data['seperator']?$data['seperator']:'|';
+			$arr = explode($seperator,$t);
+			foreach($arr as $t) echo '<a href="'.$t.'" target="_blank"><img src="'.thumb($t,50,50).'" /></a>';
+		}
+		//多行文本
+		elseif ($data['type'] == 'textarea')
+		{
+			echo $content[$name];
+		}
+		//下拉选框
+		elseif ($data['type'] == 'select')
+		{
+			foreach($data['options'] as $_val=>$_name)
+			{
+				if ($content[$name] == $_val) echo $_name;
+			}
+		}
+		//角色权限
+		elseif($data['type']=='select_user_right')
+		{
+			echo $content[$name];
+		}
+		//日期时间
+		elseif ($data['type'] == 'datetime')
+		{
+			$t = $content[$name];
+			echo date('Y-m-d H:i:s',$t);
+		}
+		//超文本编辑器
+		elseif ($data['type'] == 'richtext')
+		{
+			echo $content[$name];
+		}
+		echo "</td></tr>\n";
+	}
+	if ($statuses)
+	{
+		echo '<tr><th>{STATUS}</th>';
+		echo '<td>';
+		foreach($statuses as $_val=>$_name)
+		{
+			if ($content['status'] == $_val) echo $_name;
+		}
+		echo '</td></tr>';
+	}
+?>
+<tr>
+	<td colspan="2" style="text-align:center;"><a href="<?php 
+		echo $_SESSION['end_last_list_page']?$_SESSION['end_last_list_page']:'admin.php?p=item&category_id='.$category_id;
+	?>">{RETURN}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="admin.php?p=item&action=edit_item&item_id={$item_id}&category_id={$category_id}">{EDIT}</a></td>
+</tr>
+</table>

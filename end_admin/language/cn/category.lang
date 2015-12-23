@@ -1,0 +1,35 @@
+TITLE = 栏目管理
+
+CATEGORIES_TREE=栏目树
+ROOT_CATEGORY = 根栏目
+NEW_CHILD_CATEGORY=添加子栏目
+
+CATEGORY_ID=ID
+
+category_url=URL
+category_status=类型
+category_child=子栏目
+
+PLEASE_SELECT = 请选择...
+CATEGORY_PARENT = 父级栏目
+CATEGORY_NAME = 栏目名字
+
+CATEGORY_NEW_SUCCESS = 添加成功
+CATEGORY_DELETE_SUCCESS = 成功
+CATEGORY_EDIT_SUCCESS= 保存成功
+
+EDIT_THIS_CATEGORY=编辑此栏目
+
+CATEGORY_SYSTEM=锁定
+
+RETURN_ALERT =确定要返回吗（所有修改不会被保存）？
+
+is_empty=不能为空
+upload_error=上传失败
+not_allowed_file_type=文件类型不允许
+file_type_not_configed=没有配置file_type
+need_config_upload_file_types=请配置config.upload_file_types
+upload_image_descriptioin=只允许上传图片文件(*.jpg;*.jpeg;*.png;*.gif;)
+UPLOAD_ATTACHMENT=上传附件
+
+category_delete=您确定要删除"%s"吗?

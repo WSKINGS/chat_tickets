@@ -1,0 +1,15 @@
+#admin_menu ul li a{ font-size:12px;}
+
+
+
+/* has logo */
+#admin_logo{ width:100%; height:68px; overflow:hidden; background:url(../images/admin_logo_bg.png) 100% 100% repeat-x;}
+#admin_logo h1{ background-image: url(../images/admin_logo_en.png); height:45px;}
+
+/* no logo  only text*/
+/*
+#admin_logo h1 a,#admin_logo h1 a:hover{ color:#3462A4; display:block; height:57px; text-indent:0; line-height:53px;}
+#admin_logo h1{ background-image: none; height:45px;}
+*/
+
+#admin_info { line-height:70px; }

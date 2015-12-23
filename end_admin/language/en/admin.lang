@@ -1,0 +1,33 @@
+ADMIN_ADMIN=Administrator Management
+POSITION = Administrators
+TITLE = Administrators
+NEW_ADMIN = Add an administrator
+EDIT_ADMIN = Edit
+ADMIN_INDEX = Administrators List
+FUNCTIONS = Actions
+ADMIN_NAME = Name
+EMAIL = E-mail
+ADMIN_STATUS = Status
+ADMIN_OPTIONS = Options
+ADMIN_PASSWORD = Password
+ADMIN_PASSWORD_CONFIRM = Re-type
+PASSWORD_NOT_THE_SAME = Please input the same password twice!
+ADMIN_SUBMIT = Submit
+ADMIN_EXISTS = The administrator already exists!
+ADMIN_NEW_ERROR = error
+ADMIN_NEW_SUCCESS = success
+DELETE_CONFIRM = Are you sure to delete the administrator?
+ADMIN_DELETE_SUCCESS = success
+ADMIN_DELETE_ERROR = failed
+
+
+ADMIN_UPDATE_SUCCESS = success
+PASSWORD = Password
+CHANGE_PASSWORD = change
+RIGHTS_GROUP= Role
+DISPLAY=Display
+SHOW_ALL= All Roles 
+DEFAULT_RIGHTS_GROUP= Default Role
+
+admins=Administrators
+roles=Roles

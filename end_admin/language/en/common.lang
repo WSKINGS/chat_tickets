@@ -1,0 +1,75 @@
+ACCESS_DENIED = Access Denied
+CURRENT_LOGIN_USER=Signed in as
+HEAD_CHANGE_PASSWORD=&nbsp;&nbsp;&nbsp;Change Password
+HEAD_LOGOUT = &nbsp;&nbsp;&nbsp;Sign Out&nbsp;&nbsp;
+
+Description=Description
+Please_select=Please select...
+#导航
+NAVI_CATEGORY = Categories
+navi_ITEM = Contents
+navi_admin=Admins
+navi_config=Config
+navi_extension=Extensions
+CURRENT_POSITION=Position
+INDEX = Backend
+RETURN=Return
+
+#功能
+NOT_ALLOWED= Access Denied
+DELETE = Del
+DELETING = ...
+UPDATE= Update
+NEW = Add
+EDIT = Edit
+function=Actions
+view=View
+options=Options
+DELETE_CONFIRM=Are you sure?
+
+
+#表单 form
+INPUT_ALL=Please complete all required fields!
+cancel=Cancel
+submit=Submit
+order_id=Order
+
+#sign out
+EXIT_TITLE = Info
+EXIT_CLICK_HERE = 
+LOGIN_FIRST = Please Sign In!
+LOGOUT = Sign out
+LOGOUT_SUCCESS = Signed Out
+
+
+CONFIG = Config
+
+HIGH_LIGHT = #FFFF99
+
+#分页
+PAGER_PREV = ◀
+PAGER_NEXT = ►
+PAGER_PER_PAGE = per page
+PAGER_ITEMS = entries 
+PAGER_TOTAL = 
+PAGER_PAGE = pages
+
+
+uploaded_file=uploaded:
+
+CONTRACT=contract
+EXPAND=expand
+UNKNOWN=unknown
+INPUT_VAR_ERROR=input var error
+
+search=Search
+search_button=Srch
+cancel_search=Cancel
+star_available = * available
+
+Year=-
+Month=-
+Day= 
+Hour=:
+Minute=:
+Second= 

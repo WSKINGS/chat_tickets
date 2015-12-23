@@ -1,0 +1,119 @@
+
+body {
+	font-family: "Microsoft Yahei";
+}
+
+h1,h2,h3,h4,h5,h5,div,span,p,a {
+	font-family: "Microsoft Yahei";
+}
+
+div.book-container {
+	width: 920px;
+	margin: 0px auto;
+}
+
+/*步骤导航*/
+div.navi {
+	padding:10px 50px 20px;
+	margin-bottom: 50px;
+}
+
+.navi span {
+	font-size: 14px;
+}
+.navi span.navi-item {
+	width: 175px;
+	text-align: center;
+	line-height: 20px;
+}
+.navi span.arrow-item {
+	width: 40px;
+	text-align: center;
+	color: #cccccc;
+	line-height: 20px;
+}
+.navi span.current-item {
+	color: #a94442;
+}
+.navi span.next-item {
+	color: #666666;
+}
+.navi span.previous-item {
+	color: #999999;
+}
+
+div.amount-bg {
+	padding: 5px 10px;
+	margin: 10px 5px 10px 700px;
+	/*background-color: yellow;*/
+	color:orange;
+}
+
+/* 标记输入为空的input框 */
+input.mark_input {
+	border: 1px solid red !important;
+}
+
+div.block-header {
+	border-bottom: 3px solid #cccccc;
+	margin-bottom: 5px;
+}
+
+label.herizon-label {
+	line-height: 30px;
+}
+span.herizon-span {
+	line-height: 30px;
+}
+
+/* 参会名牌 */
+div.badge-example {
+	margin: 0px 30px;
+	height: 300px;
+	width: 200px;
+	background: url(../img/badge_sample.png);
+	/*background-color: #EFEFEF;*/
+}
+
+.badge-example div.title {
+	padding-top: 20px;
+	color: #999999;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.badge-example div.badge-name {
+	margin: 10px 0px;
+	color: #666666;
+	font-size: 13px;
+	min-height: 16px;
+	width: 200px;
+}
+.badge-example div.badge-name-zh {
+	font-size: 22px;
+	min-height: 20px;
+}
+
+
+.badge-example div.badge-company-first {
+	margin-top: 50px;
+}
+.badge-example div.badge-company {
+	padding-top: 5px;
+	color: #666666;
+	font-size: 12px;
+	min-height: 14px;
+	width: 200px;
+}
+.badge-example div.badge-company-zh {
+	font-size: 14px;
+}
+
+.invoice .checkbox label {
+	font-size: 16px;
+	font-weight:bold;
+}
+
+.termsItalic {
+	font-style:italic;
+}

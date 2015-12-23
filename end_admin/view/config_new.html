@@ -1,0 +1,51 @@
+<form action="admin.php?m=new_config&p=config" method="post">
+	<table cellpadding="0" cellspacing="5" border="0" style="width:400px;">
+    	<tr>
+        	<td>{CONFIG_NAME}</td>
+        	<td><input type="text" class="inputtext" maxlength=200 name="name" value="{$thisconfig.name}" />*</td>
+       	</tr>
+
+        <tr>
+        	<td valign="top">{CONFIG_DESCRIPTION}</td>
+            <td><input type="text" name="description" class="inputtext" value="{$thisconfig.description}" />*</td>
+        </tr>
+        <tr>
+        	<td valign="top">{CONFIG_TYPE}</td>
+            <td><select name="type" >
+            	<option value="text">{SINGLE_LINE}</option>
+            	<option value="textarea">{MULTI_LINE}</option>
+				<!-- <option value="select">{CONFIG_SELECT}</option> -->
+            </select></td>
+        </tr>
+		<!-- <tr class="type_select" style="display:none;">
+			<td valign="top">{CONFIG_OPTIONS}</td>
+			<td>
+				<div class="config_select_option">
+					{CONFIG_OPTION_NAME}: <input type="text" name="option_name[]" size="7" /> 
+					{CONFIG_OPTION_VALUE}: <input type="text" name="option_value[]" size="7" /> 
+					{CONFIG_OPTION_SELECTED}: <input type="radio" name="option_selected[]" />
+				</div>
+			</td>
+		</tr> -->
+        <tr>
+        	<td align="center" colspan="2">
+            <input type="submit" value="{CONFIG_SUBMIT}" />
+            &nbsp;
+            <input type="button" onclick="cancel_new_config(); return false;" value="{CANCEL}" />
+            </td>
+        </tr>
+     </table>
+     
+        
+   </form>
+<!-- <script>
+$(function()
+{
+	$('select[name=type]').change(function()
+	{
+		var s = $(this).val();
+		$('[class^=type_]').hide();
+		$('.type_'+s).show();
+	});
+});
+</script> -->

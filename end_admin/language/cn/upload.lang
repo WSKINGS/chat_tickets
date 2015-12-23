@@ -1,0 +1,5 @@
+type_not_allowed = 文件类型不允许
+success = 上传成功
+failed= 失败
+attachment=附件
+choose_attachment=最近上传

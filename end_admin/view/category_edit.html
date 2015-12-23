@@ -1,0 +1,31 @@
+<div id="sys_table">
+<form action="admin.php?m=edit_category&p=category&category_id={$category_id}" method="post" enctype="multipart/form-data">
+	<table >
+    	<tr>
+        	<td valign="top">
+				{CATEGORY_PARENT}
+			</td>
+        	<td>
+				<div>
+					<select name="parent_id" >
+                   		<option value="-1">{PLEASE_SELECT}</option>
+						<option value="0" 
+							{if($content.parent_id=="0")}
+								selected="selected"
+							{/if}
+						>{ROOT_CATEGORY}</option>
+                    		{$category_tree}
+                   	</select>*
+				</div>
+            </td>
+       	</tr>
+		<!-- INCLUDE edit_fields.html -->
+        <tr>
+        	<td colspan="2" align="center">
+				<input type="submit" value="{SUBMIT}" /> &nbsp;
+				<input type="button" value="{RETURN}"  onclick="if (confirm('{RETURN_ALERT}')) history.go(-1);" /> &nbsp;
+			</td>
+        </tr>
+	</table>
+</form>
+</div>

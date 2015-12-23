@@ -1,0 +1,5 @@
+type_not_allowed = file type not allowed
+success = Uploaded
+failed= failed
+attachment=Attachment
+choose_attachment=Recently uploaded

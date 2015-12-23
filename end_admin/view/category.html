@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='maindiv'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left' onselectstart="return false;">
+		<div id="admin_left_b">
+			<div class="module">
+	        		<h2>{CATEGORIES_TREE}</h2>
+				
+	        	</div>
+	</div>
+    </div>
+    <div id='main'>
+		<div id="main_b">
+			<div id="position">
+				{CURRENT_POSITION}:{NAVI_CATEGORY} > 
+
+				{$this_category.name}
+			</div>
+		
+			
+        
+	        <div id="admin_content">
+		
+				{if(!$page_content)}
+				<div class="nav_wrapper">
+					&nbsp;{FUNCTION}:
+					<?php if (check_show('add')):?>
+
+						<a class="nav" href="javascript:new_category()" id='new_category_a'>
+							{NEW_CHILD_CATEGORY}
+						</a>
+					<?php endif;?>
+					{if($category_id>0)}
+					<?php if (check_show('update')):?>
+						<a class="nav" href="admin.php?p=category&action=edit_category&category_id={$category_id}" >
+							&nbsp;{EDIT_THIS_CATEGORY}
+						</a>
+					<?php endif;?>
+					{/if}
+				</div>
+				{/if}
+
+		        {if($err_msg)}
+		        <div class="error">
+		        	{$err_msg}
+		        </div>
+		        {/if}
+		
+	        	{if($page_content)}
+					{$page_content}
+				{else}
+					<!-- INCLUDE category_new.html -->
+		            <!-- INCLUDE category_list.html -->
+				{/if}
+				<br />
+	        </div>
+    	</div>
+    </div>
+	<div style="clear:both;"></div>
+</div>
+<script>
+function delete_category(id,o,name)
+{
+	var msg = "{addslashes(lang("CATEGORY_DELETE"))}";
+	msg = msg.replace('%s',name);
+	if (!confirm(msg)) return;
+	$(o).attr('to_be_delete','yes').html('{DELETING}').unbind('click');
+	$.post('admin.php?p=ajax&m=delete&table=category&id='+id,{ },delete_callback);
+}
+function delete_callback(s)
+{
+	if (s != 'success')
+	{
+		alert('{DELETE_ERROR}');
+		return false;
+	}
+	$('[to_be_delete=yes]').parent().parent().fadeOut();
+}
+function new_category()
+{
+	$("#new_category_a").addClass('nav_on');
+	$('#new_category').fadeTo(10,0).slideDown(200).fadeTo('fast',1);
+}
+function cancel_new_category()
+{
+	$("#new_category_a").removeClass('nav_on');
+	$('#new_category').fadeTo('fast',0).slideUp(200);
+}
+function change_category(o)
+{
+	if ($(o).val())
+	{
+		window.location = "admin.php?p=category&category_id="+ $(o).val();
+	}
+}
+</script>
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

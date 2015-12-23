@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='main'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left'>
+    	<div id="admin_left_b">
+			<!-- INCLUDE admin_left.html -->
+        </div>
+    </div>
+    <div id='main'>
+        <div id="main_b">
+	
+			<div id="position">
+				{CURRENT_POSITION}: <a href="admin.php?p=admin">{NAVI_ADMIN}</a> &gt; <a href="admin.php?p=rights">{TITLE}</a>
+			</div>
+			
+	        {if($err_msg)}
+	        <div class="err_msg pad">
+	        	{$err_msg}
+	        </div>
+	        {/if}
+        
+	        {if($success_msg)}
+	        <div class="success_msg pad">
+	        	{$success_msg}
+	        </div>
+	        {/if}
+        
+        <div id="admin_content">
+
+			{if($this_group)}
+				<!-- INCLUDE rights_content.html -->
+			{else}
+			<div class="nav_wrapper">
+				&nbsp;{FUNCTION}:
+				<?php if(check_show('add')){?>
+				<a class="nav" href="javascript:;" onclick="new_rights(this)">{RIGHTS_GROUP_NEW}</a>
+				<?php };?>
+			</div>
+			
+			<div id="new_rights" class="new-form" style="display:{if($thisrights)}{else}none{/if};width:250px;">
+            	<h2>{RIGHTS_GROUP_NEW}</h2>
+        		<!-- INCLUDE rights_new.html -->
+            </div>
+
+			<table class="list_table" >
+				<tr>
+	        		<th style="width:7%">{ORDER_ID}</th>
+	        		<th style="width:25%">{RIGHTS_NAME}</th>
+	                <th style="width:45%">{RIGHTS_DESCRIPTION}</th>
+	                <th style="width:23%">{OPTIONS}</th>
+	            </tr>
+				{foreach($groups as $g)}
+				<tr>
+					<td valign="top">
+						<div admin_type="text"
+	                	admin_para="m=update&table=rights&column=order_id&id={$g.rights_id}"  
+	                    admin_trigger="click" style="text-align:center">{$g.order_id}</div>
+					</td>
+					<td valign="top">
+						<div  rightsname="name"  admin_type="text"
+	            		admin_para="m=update&table=rights&column=name&id={$g.rights_id}"  
+	                	admin_trigger="click">{$g.name}</div>
+					</td>
+					<td valign="top">
+						<div admin_type="text"
+		            	admin_para="m=update&table=rights&column=description&id={$g.rights_id}"  
+		                admin_trigger="click" >{$g.description}</div>
+					</td>
+					<td valign="top">
+						<?php if (check_show('update')):?>
+						<a href="admin.php?p=rights&rights_id={$g.rights_id}">{CONFIG_RIGHTS}</a>
+						<?php endif;?> 
+						<?php if (check_show('delete')):?>
+						<a href="javascript:;" onclick="if (confirm('{DELETE_CONFIRM}')) delete_rights({$g.rights_id},this)">{DELETE}</a> 
+						<?php endif;?>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			{/if}
+			<br />
+			<br />
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+function new_rights(o)
+{
+	$(o).addClass('nav_on').attr('newrights','yes');
+	$('#new_rights').fadeTo(10,0).slideDown(200).fadeTo('fast',1);
+}
+function cancel_new_rights()
+{
+	$('a[newrights=yes]').removeClass('nav_on');
+	$('#new_rights').fadeTo('fast',0).slideUp(200);
+}
+function delete_rights(id,o)
+{
+	$(o).attr('to_be_delete','yes').html('{DELETING}').unbind('click');
+	$.post('admin.php?p=ajax&m=delete&table=rights&id='+id,{ },delete_callback);
+}
+function delete_callback(s)
+{
+	if (s == 'error')
+	{
+		alert('{DELETE_ERROR}');
+		return false;
+	}
+	$('[to_be_delete=yes]').parent().parent().fadeOut();
+}
+
+</script>
+
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

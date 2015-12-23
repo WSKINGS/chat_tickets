@@ -1,0 +1,78 @@
+ACCESS_DENIED = 没有权限
+CURRENT_LOGIN_USER= 登录为
+HEAD_CHANGE_PASSWORD=&nbsp;&nbsp;&nbsp;修改密码
+HEAD_LOGOUT = &nbsp;&nbsp;&nbsp;注销&nbsp;&nbsp;
+DEV_MODE=开发模式
+Description=描述
+Please_select=请选择...
+#导航
+NAVI_CATEGORY = 栏目管理
+navi_ITEM = 内容管理
+navi_admin= 管理员
+navi_config=系统设置
+navi_extension= 扩展
+CURRENT_POSITION= 当前位置
+INDEX = 后台首页
+RETURN= 返回
+
+admin_system_config=系统设置
+
+
+#功能
+NOT_ALLOWED= 没有权限
+DELETE = 删除
+DELETING = ...
+UPDATE= 更新
+NEW = 添加
+EDIT = 编辑
+function=功能
+view= 查看
+options=操作
+DELETE_CONFIRM=确定要删除吗？
+
+
+#表单 form
+INPUT_ALL=请填写所有要求的项目
+cancel=取消
+submit=提交
+order_id=排序
+
+#sign out
+EXIT_TITLE = 系统消息
+EXIT_CLICK_HERE = 
+LOGIN_FIRST = 请登录！
+LOGOUT = 注销
+LOGOUT_SUCCESS = 注销成功
+
+
+CONFIG = 设置
+
+HIGH_LIGHT = #FFFF99
+
+#分页
+PAGER_PREV = &lt;&lt;
+PAGER_NEXT = &gt;&gt;
+PAGER_PER_PAGE = 每页
+PAGER_ITEMS = 条
+PAGER_TOTAL = 
+PAGER_PAGE = 页
+
+
+uploaded_file=上传:
+
+CONTRACT=收缩
+EXPAND=展开
+UNKNOWN=未知
+INPUT_VAR_ERROR=输入错误！
+
+search=搜索
+search_button=搜
+cancel_search=取消
+star_available = 可用*通配符
+
+Year=年
+Month=月
+Day=日
+Hour=:
+Minute=:
+Second= 

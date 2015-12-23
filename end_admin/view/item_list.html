@@ -1,0 +1,143 @@
+<div >
+	<div style="display:none">
+		<select id="select_source_category_id">
+			{$category_tree}
+		</select>
+	</div>
+	<div style="display:none">
+	<?php
+		//输出 select 类型 字段 的 选择源数据
+		foreach($list_fields as $_key=>$field)
+		{
+			if ($field['type'] == 'select' && is_array($field['options']))
+			{
+				$select_id = 'select_source_'.$_key;
+				echo '<select id="'.$select_id.'">'."\n";
+				foreach($field['options'] as $_key=>$_val)
+				{
+					echo '<option value="'.$_key.'" source="'.htmlspecialchars($_val).'">'.$_val."</option>\n";
+				}
+				echo "</select>\n";
+			}
+		}
+	?>
+	</div>
+	<script>
+	function show_select_value(source,val)
+	{
+		if (!val) return '';
+		var dom = $('#select_source_'+source).find('option[value='+val+']');
+		return dom.attr('source')?dom.attr('source'):dom.html();
+	}
+	</script>
+            <table cellpadding="0" cellspacing="0" border="0" id="item_table" class="list_table" >
+            	<thead>
+                   	<tr>
+						{foreach($list_fields as $key=>$l)}
+						<th 
+						{if($l.search)} search="{$key}" {/if}
+						{if($l.width)} width="{$l.width}" {/if}
+						{if($l.sort)} order="{$key}" {/if}
+						>{$l.name}</th>
+						{/foreach}
+                    </tr>
+                </thead>
+                <tbody>
+					<?php
+					foreach($items as $item)
+					{
+						$item_id = $item[$item_model->id];
+						echo '<tr>';
+						foreach($list_fields as $_key=>$field)
+						{
+							echo '<td>'."\n".'<div class="table-cell" ';
+							
+							$value = $item[$_key];
+							
+							
+							if($_key == 'category_id') $field['type'] = 'select'; //分类，系统自动 
+							
+							
+							//配置可编辑的单元格
+							if ($field['edit'])
+							{
+								if ($field['type'] == 'select')
+								{
+									$select_id = 'select_source_'.$_key;
+									echo ' admin_type="text" ';
+									echo ' admin_select_value="'.$item[$_key].'" ';
+				                    echo ' admin_select_source_id="'.$select_id.'" ';
+			                       	echo "admin_para='m=update&table="
+										.$table."&column="
+										.$_key."&id="
+										.$item_id."'";
+			 						echo ' admin_trigger="click" ';
+								}
+								else if ($field['type'] == 'textarea')
+								{
+									echo ' admin_type="textarea" ';
+			                       	echo "admin_para='m=update&table="
+										.$table."&column="
+										.$_key."&id="
+										.$item_id."'";
+			 						echo ' admin_trigger="click" ';
+									if ($field['height']) 
+										echo ' style="overflow:hidden;height:'.$field['height'].'px" ';
+								}
+								else
+								{
+									echo ' admin_type="text" ';
+			                       	echo "admin_para='m=update&table="
+										.$table."&column="
+										.$_key."&id="
+										.$item_id."'";
+			 						echo ' admin_trigger="click" ';
+								}
+							}
+							if ($field['align']) echo ' style="text-align:'.$field['align'].'" ';
+							echo ">";
+							
+							
+							//如果有filter函数
+							if ($field['filter'])
+							{
+								if (!function_exists($field['filter']))
+									$value = '<span style="color:red">filter function <strong style="font-weight:bold;">'.$field['filter'].'</strong> not found</span>';
+								else
+								{
+									//如果是options字段，那么传整个数据行给filter函数
+									if ($_key == '_options')
+									{
+										$value = $field['filter']($item);
+									}
+									//如果是select类型的字段，那么多传入options为filter的第二个参数
+									else if ($field['options'])
+									{
+										$value = $field['filter']($value,$field['options']);
+									}
+									else
+									{
+										$value = $field['filter']($value);
+									}
+								}
+							}
+							else if ($field['type'] == 'select')
+							{
+								$value = '<script>document.write(show_select_value("'.$_key.'","'.$value.'"));</script>';
+							}
+							
+							//显示数据
+							echo $value;
+							
+							echo "</div></td>";
+						}
+						echo "</tr>\n";
+					}
+					?>
+                </tbody>
+                
+            </table>
+</div>
+{$pager} &nbsp; 
+<!-- <a href="javascript:;" onclick="window.location = window.location.href +'&export';">导出XLS</a> -->
+

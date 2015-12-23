@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='maindiv'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left' onselectstart="return false;">
+		<div id="admin_left_b">
+	    	<div class="module">
+				<h2>{MY_MOST_URL}</h2>
+				<?php $menus=model('log')->count_menu(10);?>
+				<ul class="admin-left">
+					{foreach($menus as $m)}
+					<li><a href="{$m.url}">{$m.info}</a></li>
+					{/foreach}
+			    </ul>
+			</div>
+		</div>
+    </div>
+    <div id='main'>    
+        <div id="main_b">
+			<div id="position">
+				{CURRENT_POSITION}: {TITLE}
+			</div>
+        	
+        </div>
+        
+    </div>
+</div>
+
+
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

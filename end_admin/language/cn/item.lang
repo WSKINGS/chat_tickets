@@ -1,0 +1,33 @@
+TITLE = 内容管理
+
+CATEGORIES_TREE=栏目树
+category_root=根栏目
+ROOT_CATEGORY = 根栏目
+ITEM_CATEGORY=栏目
+display=显示
+SHOW_ALL=所有
+
+NEW_ITEM = 添加
+VIEW_ITEM_CONTENT=查看内容
+STATUS=状态
+return_alert=确定要返回吗（修改的内容不会被保存）？
+ITEM_SAVE_SUCCESS = 保存成功
+upload_image_descriptioin=只允许图片文件(*.jpg;*.jpeg;*.png;*.gif;)
+UPLOAD_ATTACHMENT=上传文件
+
+CATEGORY_TYPE=栏目类型
+
+
+
+
+is_empty=不能为空
+upload_error=上传失败
+not_allowed_file_type=文件类型不允许
+file_type_not_configed=file_type没有配置
+need_config_upload_file_types=需要配置 config.upload_file_types
+
+
+save=保存
+save_as=保存为
+add_item=添加
+edit_item=编辑

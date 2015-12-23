@@ -1,0 +1,42 @@
+        <form action="admin.php?m=new_admin&p=admin" method="post"  onsubmit="return check_form();" >
+        	<table>
+
+            	<tr>
+                	<td>{ADMIN_NAME}</td>
+                	<td><input type="text" class="inputtext" maxlength=200 name="name" id='name' value="{$admin.name}" />*</td>
+               	</tr>
+                
+                <tr>
+                	<td valign="top">{ADMIN_PASSWORD}</td>
+                    <td><input type="password" class="inputtext" maxlength=200 name="password" id='password' />*</td>
+                </tr>
+          
+                <tr>
+                	<td valign="top">{ADMIN_PASSWORD_CONFIRM}</td>
+                    <td><input type="password" class="inputtext" maxlength=200 name="password2" id='password2' />*</td>
+                </tr>
+            	<tr>
+                	<td>{EMAIL}</td>
+                	<td><input type="text" class="inputtext" maxlength=200 name="email" value="{$admin.email}" /></td>
+               	</tr>                
+                <tr>
+                	<td colspan="2" align="center">
+                    	<input type="submit" value="{ADMIN_SUBMIT}" />&nbsp;
+                    	<input type="button" value="{CANCEL}" onclick="cancel_new_admin(); return false;" />
+                    </td>
+                </tr>
+             </table>
+             
+                
+           </form>
+
+<script>
+function check_form()
+{
+	if ($_('password').value != $_('password2').value)
+	{
+		alert('{PASSWORD_NOT_THE_SAME}');
+		return false;
+	}
+}
+</script>

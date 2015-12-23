@@ -1,0 +1,33 @@
+<!-- INCLUDE header.html -->
+<div class="book-container">
+  <div class="navi">
+      <span class="navi-item previous-item pull-left"><?php echo $texts['choose_ticket']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item previous-item pull-left"><?php echo $texts['submit_info']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item previous-item pull-left"><?php echo $texts['wait_for_payment']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item current-item pull-left"><?php echo $texts['book_suceed']; ?></span>
+  </div>
+  <div class="content">
+  	<div class="well well-lg">
+  	<?php if ($show_success) : ?>
+      <p class="text-success"><?php echo $texts['congratulation']; ?></p>
+      <br/>
+      <p class="text-success"><?php echo $texts['order_suceed_part_1']." ".$order_data['order_serial']." ".$texts['order_suceed_part_2']; ?></p>
+    <?php else: ?>
+      <p class="text-success"><?php echo $texts['order_failed_part_1']." ".$order_data['order_serial']." ".$texts['order_failed_part_2']; ?></p>
+    <?php endif; ?>
+      <br/>
+      <p><?php echo $button_html; ?></p>
+  	</div>
+  </div>
+</div>
+
+<!-- include script.html -->
+<script type="text/javascript">
+function return_home(url){
+	window.location.href=url;
+}
+</script>
+<!-- include footer.html -->

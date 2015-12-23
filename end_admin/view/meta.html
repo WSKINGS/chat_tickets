@@ -1,0 +1,19 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>{TITLE} - {$config.site_name}</title>
+<base href="{$url_base}" />
+<link href="end_admin/view/style/admin_style.css" rel="stylesheet" type="text/css" />
+<?php
+if (END_LANGUAGE != 'cn')
+ echo '<link href="end_admin/view/style/lang.'.END_LANGUAGE.'.css" rel="stylesheet" type="text/css" />';
+?>
+<script src="end_admin/view/js/jquery/jquery.js" type="text/javascript"></script>
+<script src="end_admin/view/js/common.js" type="text/javascript"></script>
+<script>
+can_not_update = false;
+can_not_delete = false;
+can_not_add = false;
+
+try {
+	document.execCommand("BackgroundImageCache",false,true);
+}catch(e){ }
+</script>

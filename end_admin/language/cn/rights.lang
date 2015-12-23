@@ -1,0 +1,26 @@
+title=角色/权限
+rights=权限
+rights_group = 角色
+rights_group_new= 添加角色
+RIGHTS_GROUP_NAME = 角色名
+RIGHTS_NAME = 角色
+RIGHTS_DESCRIPTION = 描述
+CONFIG_RIGHTS = 设置权限
+SELECT_ALL=全选
+SELECT_INVERSE=&nbsp;&nbsp;反选
+
+rights_add_success=保存成功
+rights_add_failed=保存失败
+rights_updated=保存成功
+limit_category_id =以上配置只应用于特定的栏目
+
+rights_delete =删除
+rights_add =增加
+rights_update=更新
+rights_view=查看
+
+rights_update_password=修改密码
+rights_config=设置权限
+
+admins=管理员
+roles=角色

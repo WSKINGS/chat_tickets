@@ -1,0 +1,41 @@
+<div id="new_category" class="new-form" style="width:300px;">
+	<h2>{NEW_CHILD_CATEGORY}</h2>
+	<form action="admin.php?m=new_category&p=category&category_id={$category_id}" method="post"
+		onsubmit="return (this.name.value!='');"
+	>
+		<table cellpadding="0" cellspacing="5" border="0" >
+			<tr>
+				<td>{CATEGORY_PARENT}</td>
+				<td>
+					<select name="parent_id" >
+						<option value="0" >{ROOT_CATEGORY}</option>
+                    					{$category_tree}
+                   				</select>*
+				</td>
+			</tr>
+			<tr>
+			   	<td>{CATEGORY_NAME}</td>
+			   	<td><input type="text" size="25" class="inputtext" maxlength="200" name="name" value="{$category.name}" />*</td>
+			</tr>
+			<tr>
+				<td>
+					{CATEGORY_STATUS}
+				</td>
+				<td>
+					<select name="status">
+						{foreach($statuses as $key=>$val)}
+							<option value="{$key}" >{strip_tags($val['name'])}</option>
+						{/foreach}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+			    	<input type="submit" value="{SUBMIT}" />
+				    &nbsp;
+				    <input type="button" onclick="cancel_new_category(); return false;" value="{CANCEL}" />
+			    </td>
+			</tr>
+		</table>
+	</form>
+</div>

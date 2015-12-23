@@ -1,0 +1,30 @@
+div.main-content {
+	padding-top: 80px;
+}
+div.side-nav {
+	position: fixed;
+	top: 80px;
+	width: 200px;
+	left: 15px;
+}
+.side-nav ul.sidenav {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-shadow: 0 1px 0 #fff;
+	background-color: #f7f5fa;
+	border-radius: 5px;
+}
+.side-nav .sidenav > li > a {
+	padding: 5px 15px;
+}
+
+.order-table {
+	font-size: 12px;
+}
+.order-table > thead > tr > th,
+.order-table > tbody > tr > td {
+	padding: 5px 5px;
+}
+div.row-padding {
+	padding: 5px 0px;
+}

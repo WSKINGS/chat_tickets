@@ -1,0 +1,92 @@
+<?php
+/*
+根据配置生成编辑页面的各个输入字段
+*/
+	if (!$fields) $fields = array();
+	foreach($fields as $name=>$data)
+	{
+		if (preg_match('/^__/',$name)) continue;
+		if (!$data['type']) $data['type'] = 'text';
+		echo "<tr><td>$data[name]";
+		if (!$data['null']) echo '<span style="color:red">*</span>';
+		echo "</td>";
+		echo '<td>';
+		
+		$data['style'] .= ($data['width'])?'width:'.$data['width'].'px;':'';
+		$data['style'] .= ($data['height'])?'height:'.$data['height'].'px;':'';
+		
+		$data['field_name'] = $name;
+		$data['__orig_content'] = $content[$name];
+		$data['content'] = $content[$name];
+		
+		if (!$data['content'] && $data['content'] !== 0 && $data['default']) $data['content'] = $data['default'];
+		
+		//显示之前的预处理
+		if ($data['prefilter'] && function_exists($data['prefilter']))
+		{
+			$data['content'] = $data['prefilter']($data['content']);
+		}
+	
+		if (function_exists($_func = 'endcms_input_'.$data['type']))
+		{
+			$_func($data); 
+			//这些函数在helper/html.php里面
+		}
+		echo "</td></tr>\n";
+	}
+?>
+
+<script>
+$(function()
+{
+	var remove_row;
+	$('span.del-row-bt').click(remove_row = function()
+	{
+		$(this).parents('div.list-row-wrapper').remove();
+	});
+	$('span.add-row-bt').click(function()
+	{
+		var div = $(this).parents('div.list-row-wrapper');
+		var remove = div.find('.add-row-bt').attr('remove');
+		var cloned = div.clone();
+		cloned.insertAfter(div)
+			.find('.add-row-bt')
+			.removeClass('add-row-bt')
+			.addClass('del-row-bt')
+			.html(remove)
+			.click(remove_row);
+		cloned.find('input').val('');
+	});
+	var role_rights = $("input[name='rights']").attr('value');
+	if(role_rights)
+	{
+		var role_rights_arr = role_rights.split(",");
+		for(var i=0;i<role_rights_arr.length;i++)
+		{
+			$(".select_to_string").each(function()
+			{
+				if($(this).attr('data-name')==role_rights_arr[i])
+				{
+					$(this).attr("checked",true);
+				}
+			});
+		}
+	}
+	$(".select_to_string").click(function(){
+		var dataarr = [];
+		// console.log($(this).attr("checked"))
+		$(".select_to_string").each(function(i){
+			if($(this).attr('checked')==true)
+			{
+				var dataname = $(this).attr("data-name");
+				dataarr.push(dataname);
+			}
+		});
+		var datastr = dataarr.join(",");
+
+		$("input[name='rights']").attr('value',datastr);
+	})
+
+
+});
+</script>

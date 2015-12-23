@@ -1,0 +1,413 @@
+<!-- INCLUDE manage_header.html -->
+<div class="content-container main-content" style="">
+	<div class="row">
+		<div class="col-md-2 sidebar">
+			<!-- INCLUDE manage_sidenav.html -->
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<form id="search_form" class="search-from">
+					<div class="col-md-3 col-md-offset-4">
+						<input type="text" class="form-control" name="s" id="s" value="<?php echo $_GET['s']; ?>" placeholder="订单号、联系人、联系人email、参会者姓/名、公司">
+					</div>
+					<div class="col-md-1">
+						<button type="submit" class="btn btn-default">搜索</button>
+					</div>
+				</form>
+				<div class="col-md-4">
+					<a type="button" href="?p=manage_export&activity=<?php echo $activity_id; ?>&active=false" class="btn btn-info">导出未生效参会者</a>
+					<a type="button" href="?p=manage_export&activity=<?php echo $activity_id; ?>&active=true" class="btn btn-info">导出生效参会者</a>
+				</div>
+			</div>
+			<br/>
+			<div class="panel-group" id="order_div">
+				<table class="table table-hover table-condensed order-table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>订单号</th>
+							<th>联系人</th>
+							<!-- <th>手机</th>
+							<th>邮箱</th> -->
+							<th>公司</th>
+							<th>门票</th>
+							<th>数量</th>
+							<th>金额</th>
+							<!-- <th>需发票</th> -->
+							<th>审核状态</th>
+							<th>付款状态</th>
+							<!-- <th>付款金额</th> -->
+							<!-- <th>付款时间</th> -->
+							<!-- <th>注册时间</th> -->
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php foreach ($orders as $key => $o) : ?>
+						<tr>
+							<td><?php echo $key; ?></td>
+							<td><?php echo $o->get_order_data('order_serial'); ?></td>
+							<td><?php echo $o->get_order_data('contact_name'); ?></td>
+							<!-- <td><?php echo $orders_contact_phone[$key]; ?></td>
+							<td><?php echo $o->get_order_data('contact_email'); ?></td> -->
+							<td><?php echo $orders_company_name[$key]['zh']; ?></td>
+							<td><?php echo $orders_tickets[$key]['name']; ?></td>
+							<td><?php echo $orders_tickets[$key]['quantity']; ?></td>
+							<td><?php echo $orders_amount[$key]; ?></td>
+							<!-- <td><?php echo ($o->get_order_data('need_invoice')=='1')?"是":"否"; ?></td> -->
+							<td id="approve_td_<?php echo $key; ?>"><?php echo $orders_approve[$key]; ?></td>
+							<td><?php echo $orders_charge_status[$key]; ?></td>
+							<!-- <td><?php echo $o->get_order_data('charge_amount'); ?></td> -->
+							<!-- <td><?php echo $orders_charge_time[$key]; ?></td> -->
+							<!-- <td><?php echo date("Y-m-d H:i:s", $o->get_order_data('create_time')); ?></td> -->
+							<td>
+								<div class="btn-group">
+									<!-- <button type="button" class="btn btn-default btn-xs" onclick="view_order(<?php echo $key; ?>)">查看</button> -->
+									<a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#order_div" href="#order_info_<?php echo $key; ?>">查看</a>
+									<button type="button" class="btn btn-default btn-xs" onclick="edit_order(<?php echo $key; ?>)">修改</button>
+									<!--@begin wangshuai add 20150108-->
+									<?php if($orders_charge_status[$key] == "待付款"){
+										echo '<button type="button" class="btn btn-default btn-xs" onclick="recieve_pay('.$key.','
+										.$orders_amount[$key].
+										')">已到账</button>';
+									}
+									?>
+									<!-- @end wangshuai add 20150108-->
+									<?php switch ($o->get_check_status()) {
+										case '-2':
+											echo '<button type="button" class="btn btn-default btn-xs" onclick="approve('.$key.',true)">通过</button>';
+											echo '<button type="button" class="btn btn-default btn-xs" onclick="approve('.$key.',false)">不通过</button>';
+											break;
+										case '-1':
+											echo '<button type="button" class="btn btn-default btn-xs" onclick="approve('.$key.',true)">通过</button>';
+											break;
+										case '1':
+											echo '<button type="button" class="btn btn-default btn-xs" onclick="approve('.$key.',false)">不通过</button>';
+											break;
+										case '2':
+											# code...
+											break;
+										default:
+											# code...
+											break;
+									} ?>
+									<button type="button" class="btn btn-default btn-xs" onclick="delete_order(<?php echo $key; ?>)">删除</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  colspan="10" style="padding: 0 5px; background-color:#EFEFEF;" >
+								<div id="order_info_<?php echo $key; ?>" class="panel-collapse collapse">
+									<div  class="panel-body">
+										<div class="row row-padding">
+											<div class="col-md-3">联系邮箱：<?php echo $o->get_order_data('contact_email'); ?></div>
+											<div class="col-md-3">联系电话：<?php echo $orders_contact_phone[$key]; ?></div>
+											<div class="col-md-6">需发票：<?php echo ($o->get_order_data('need_invoice')=='1')?"是（".$o->get_order_data('invoice_title')."）":"否"; ?></div>
+										</div>
+										<div class="row row-padding">
+											<div class="col-md-3">注册时间：<?php echo date("Y-m-d H:i:s", $o->get_order_data('create_time')); ?></div>
+											<div class="col-md-3">付款时间：<?php echo $orders_charge_time[$key]; ?></div>
+										</div>
+										<div class="row row-padding">
+											<div class="col-md-12"><strong>公司信息：</strong></div>
+										</div>
+										<div class="row row-padding">
+											<div class="col-md-6">
+											公司：
+											<?php 
+											echo $orders_company_name[$key]['zh']."/".$orders_company_name[$key]['en'];
+											?>
+											</div>
+											<div class="col-md-3">座机：<?php echo decode_phone($o->get_order_data('company_phone')); ?></div>
+											<div class="col-md-3">类型：<?php echo $company_fields[$o->get_order_data('company_field_id')]['name']['zh']; ?></div>
+										</div>
+										<div class="row row-padding">
+											<div class="col-md-6">
+											地址：
+											<?php 
+											$address = json_decode($o->get_order_data('company_address'), true);
+											echo $address['country']." ".$address['province']." ".$address['city']." ".$address['details']." ".$o->get_order_data('company_zipcode');
+											?>
+											</div>
+											<div class="col-md-3">网址：<?php echo $o->get_order_data('company_website'); ?></div>
+											<div class="col-md-3">传真：<?php echo decode_phone($o->get_order_data('company_fax')); ?></div>
+										</div>
+										<div class="row row-padding">
+											<div class="col-md-12"><strong>参会者：</strong></div>
+										</div>
+										<div class="row row-padding">
+											<div class="col-md-12">
+												<table class="table table-condensed" style="background-color:#EFEFEF;">
+													<thead>
+														<tr>
+															<th>姓名</th>
+															<th>职位</th>
+															<th>邮箱</th>
+															<th>手机</th>
+															<th>座机</th>
+															<th>住宿</th>
+															<!--th>14点会议</th>
+															<th>16点会议</th>
+															<th>境外交易</th-->
+															<th>生效</th>
+														</tr>
+													</thead>
+													<tbody>
+													<?php 
+													$attendees = $o->get_attendees();
+													foreach ($attendees as $key => $a) : ?>
+														<tr>
+															<td>
+															<?php 
+															$names = json_decode($a->get_attendee_data('name'), true);
+															$names['en'] = json_decode($names['en'],true);
+															echo $names['zh']."/".$names['en']['firstname']." ".$names['en']['lastname'];
+															?>
+															</td>
+															<td>
+															<?php
+															$titles = json_decode($a->get_attendee_data('title'), true);
+															echo $titles['zh']."/".$titles['en'];
+															?>
+															</td>
+															<td>
+															<?php
+															echo $a->get_attendee_data('email');
+															?>
+															</td>
+															<td>
+															<?php
+															echo decode_telephone($a->get_attendee_data('telephone'));
+															?>
+															</td>
+															<td>
+															<?php
+															echo decode_phone($a->get_attendee_data('phone'));
+															?>
+															</td>
+															<td>
+															<?php
+															$extra = json_decode($a->get_attendee_data('extra_info'), true);
+															echo ($extra['need_room'] == '1')?"是":"否";
+															?>
+															</td>
+															<!--td>
+															<--?php
+															$extra = json_decode($a->get_attendee_data('extra_info'), true);
+															echo ($extra['attend_14'] == '1')?"是":"否";
+															?>
+															</td>
+															<td>
+															<--?php
+															$extra = json_decode($a->get_attendee_data('extra_info'), true);
+															echo ($extra['attend_16'] == '1')?"是":"否";
+															?>
+															</td>
+															<td>
+															<--?php
+															$extra = json_decode($a->get_attendee_data('extra_info'), true);
+															echo ($extra['attend_oversea'] == '1')?"是":"否";
+															?>
+															</td-->
+															<td>
+															<?php
+															echo ($a->get_attendee_data('active') == '1')?"是":"否";
+															?>
+															</td>
+														</tr>
+													<?php endforeach; ?>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+			<div class="page-nav text-center">
+				<span>
+					第
+				</span>
+				<select id="page_navi">
+				<?php for ($i = 1; $i <= $page_num; $i++): ?>
+					<option value="<?php echo $i; ?>" <?php echo ($i==$page)?"selected":""; ?>>
+						<?php echo $i; ?>
+					</option>
+				<?php endfor; ?>
+				</select>
+				<span>页</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="order_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:900px;">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">订单信息</h4>
+	    </div>
+	    <div class="modal-body" id="order_modal_body">
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	      <button id="order_btn_update" type="button" class="btn btn-primary hidden">保存</button>
+		  <!--button id="receieve_btn_update" type="button" class="btn btn-primary hidden">确定</button-->
+	    </div>
+	  </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- INCLUDE script.html -->
+<script type="text/javascript">
+
+function view_order(oid) {
+	$jqxhr = $.get("?p=manage_order_form&do=view&order="+oid, 
+    function(s) {
+      var ret = $.parseJSON(s);
+      if (ret.r == 'ok') {
+      	$("#order_modal_body").html(ret.msg);
+      }
+      else {
+        alert(ret.msg);
+      }
+    })
+    .fail( function() {
+      alert('Error.');
+    });
+
+	$("#order_modal").modal({
+		backdrop: 'static',
+		show: true
+	});
+}
+
+function edit_order(oid) {
+	$jqxhr = $.get("?p=manage_order_form&do=edit&order="+oid, 
+    function(s) {
+      var ret = $.parseJSON(s);
+      if (ret.r == 'ok') {
+      	$("#order_modal_body").html(ret.msg);
+		
+		//being added by wangshuai
+		//$("#myModalLabel").text("订单信息");
+		//$("#receieve_btn_update").addClass('hidden');
+		//end
+		
+      	$("#order_btn_update").removeClass('hidden');
+      }
+      else {
+        alert(ret.msg);
+      }
+    })
+    .fail( function() {
+      alert('Error.');
+    });
+
+	$("#order_modal").modal({
+		backdrop: 'static',
+		show: true
+	});
+}
+
+// @begin wangshuai add @2015-01-08
+function recieve_pay(oid,count) {
+	if (confirm("确定收到该订单（ID："+oid+"）付款"+count+"吗？")) {
+		$jqxhr = $.get("?p=pay_money&order="+oid+"&price="+count, 
+	    function(s) {
+	      var ret = $.parseJSON(s);
+	      if (ret.r == 'ok') {
+	      	//alert(ret.msg);
+			alert("操作成功");
+			window.location.reload();
+	      }
+	      else {
+	        alert(ret.msg);
+	      }
+	    })
+	    .fail( function() {
+	      alert('update pay error.');
+	    });
+    }
+}
+// @end wangshuai add @2015-01-08
+
+function approve(oid, pass) {
+	$jqxhr = $.get("?p=manage_query&do=approve&order="+oid+"&pass="+pass, 
+    function(s) {
+      var ret = $.parseJSON(s);
+      if (ret.r == 'ok') {
+      	window.location.reload();
+      }
+      else {
+        alert(ret.msg);
+      }
+    })
+    .fail( function() {
+      alert('Approve error.');
+    });
+}
+
+function delete_order(oid) {
+	if (confirm("确定删除该订单（ID："+oid+"）吗？")) {
+		$jqxhr = $.get("?p=manage_query&do=delete&order="+oid, 
+	    function(s) {
+	      var ret = $.parseJSON(s);
+	      if (ret.r == 'ok') {
+	      	window.location.reload();
+	      }
+	      else {
+	        alert(ret.msg);
+	      }
+	    })
+	    .fail( function() {
+	      alert('Delete error.');
+	    });
+    }
+}
+
+$(function() {
+	$("#page_navi").change(function() {
+		var page = $("#page_navi").val();
+		window.location.href = "?p=manage&page="+page;
+	});
+
+	$("#order_btn_update").click(function(evt) {
+		evt.preventDefault();
+
+		$("#order_btn_update").attr("disabled","disabled").html("loading...");
+
+		var data = $("#order_form_update").serialize();
+    	var order = $("#order_form_update").data("order");
+
+    	$.post("?p=manage_query&do=update_order&order="+order,data,function(s) {
+		      var ret = $.parseJSON(s);
+		        if (ret.r == 'ok') {
+		        	alert("保存成功");
+		        	window.location.reload();
+		        }
+		        else if (ret.r == 'error') {
+		          alert(ret.msg);
+		        }
+		      },'text');
+
+    	$("#order_btn_update").removeAttr("disabled").html("保存");
+	});
+
+	$("#search_form").submit(function(evt) {
+		evt.preventDefault();
+
+		var data = $("#s").val();
+		window.location.href = "?p=manage&s="+data;
+
+		return false;
+	});
+});
+</script>
+<!-- INCLUDE manage_footer.html

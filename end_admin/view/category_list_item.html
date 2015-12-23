@@ -1,0 +1,68 @@
+{foreach($tree as $c)}
+<tr style="display:{if($c['depth'] > 0)}none{/if};"   depth="{$c['depth']}" category_id="{$c['category_id']}" parent_id="{$c['parent_id']}" ntype="line" >
+	<td>
+		<table cellspacing="0" cellpadding="0" border="0" style="border:0; width:100%;">
+		<tr>
+		<td style="border:0; width:<?php echo $depth*20+1;?>px; ">&nbsp;</td>
+		<td style="border:0;width:20px; text-align:center;cursor:pointer" onclick="open_children({$c['category_id']},this,{$depth})" >
+			<img src="end_admin/view/images/plus.png"  rel="pointer" />
+		</td>
+		<td style="border:0;">
+		{if ($c['system'] == 'yes')}
+			{$c['name']}
+		{else}
+			<div 
+				admin_type="text" 
+				admin_para="m=update&table=category&column=name&id={$c['category_id']}">{$c['name']}</div>
+		{/if}
+		</td>
+		</tr>
+		</table>
+	</td>
+	<td style="text-align:center">
+		{$c['category_id']}
+	</td>
+               	<td>
+		<div admin_type="text" admin_para="m=update&table=category&column=order_id&id={$c['category_id']}"  style="text-align:center">{$c['order_id']}</div>
+	</td>
+               	<td>
+		{if ($c['system'] == 'yes')}
+			{$c['url']}
+		{else}
+			<div admin_type="text"  admin_para="m=update&table=category&column=url&id={$c['category_id']}">{$c['url']}</div>
+		{/if}
+	</td>
+	<td>
+		{if ($c['system'] == 'yes')}
+			{show_status($c['status'])}
+		{else}
+		<div admin_type="text" 
+			admin_para="m=update&table=category&column=status&id={$c['category_id']}" 
+			admin_select_value="{$c['status']}"
+			admin_select_source_id="status_select"
+			admin_trigger="click" status_category_id="{$c['category_id']}">{show_status($c['status'])}</div>
+		{/if}
+	</td>
+	{if ( END_DEBUG == true)}
+		<td>
+			<div admin_type="text"
+				admin_para="m=update&table=category&column=system&id={$c['category_id']}" 
+				admin_select_value="{$c['system']}"
+				admin_select_source_id="category_system_select"
+				admin_trigger="click" status_category_id="{$c['category_id']}">{$c['system']}</div>
+		</td>
+	{/if}
+	<td>
+                          	{if (check_show('delete'))}
+			{if ($c['system'] == 'no')}
+				<a href="javascript:;" onclick="delete_category({$c['category_id']},this,'{addslashes($c['name'])}');">{DELETE}</a>
+			{/if}
+		{/if}
+		{if (check_show('update'))}
+			{if ($c['system'] == 'no')}
+                          			<a href="admin.php?p=category&action=edit_category&category_id={$c['category_id']}">{EDIT}</a>
+			{/if}
+		{/if}
+	</td>
+</tr>
+{/foreach}

@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"> 
+<head>
+	<!-- INCLUDE meta.html -->
+</head>
+<body>
+<div class='maindiv'>
+
+<div class="headerdiv">
+	<!-- INCLUDE header.html -->
+</div>
+
+<div id='content'>
+	<div id='admin_left' onselectstart="return false;">
+		<div id="admin_left_b">
+	    	<div class="module">
+	        	<h2></h2>
+				<div >
+				</div>
+	        </div>
+		</div>
+    </div>
+    <div id='main'>
+		<div id="main_b">
+			<div id="position">
+				{CURRENT_POSITION}: 系统设置
+			</div>
+			
+	        <div id="admin_content">
+				<?php
+				if (!is_writable(END_SYSTEM_DIR.'site_config.php'))
+				{
+				?>
+				<span style="color:red">配置文件(<?php echo END_SYSTEM_DIR.'site_config.php';?>)不可写，所有设置的改动将会出错!</span>
+				<?php
+				}
+				?>
+				<div class="nav_wrapper">
+					<?php if (check_show('add') && END_DEBUG == 'yes'):?>
+					&nbsp;{FUNCTION}:<a href="javascript:;" class="nav" onclick="new_config(this)">{CONFIG_NEW}</a>
+					<?php endif;?>
+				</div>
+				
+				<div id="new_config" class="new-form" style="display:{if($thisconfig)}{else}none{/if};width:400px;">
+	            	<h2>{NEW_CONFIG}</h2>
+	        		<!-- INCLUDE config_new.html -->
+	            </div>
+		
+				<div >
+					<div style="display:none">
+					<?php
+						//输出 select 类型 字段 的 选择源数据
+						foreach($items as $_key=>$field)
+						{
+							if ($field['type'] == 'select' && $field['options'])
+							{
+								$select_id = 'select_source_'.$field['config_id'];
+								echo '<select id="'.$select_id.'">'."\n";
+								$options = explode('<br>',$field['options']);
+
+								foreach($options as $line)
+								{
+									list($_key,$_val) = explode('=',$line,2);
+									echo '<option value="'.$_key.'" source="'.htmlspecialchars($_val).'">'.$_val."</option>\n";
+								}
+								echo "</select>\n";
+							}
+						}
+					?>
+					</div>
+					<script>
+					function show_select_value(source,val)
+					{
+						if (!val) return '';
+						var dom = $('#select_source_'+source).find('option[value='+val+']');
+						return dom.attr('source')?dom.attr('source'):dom.html();
+					}
+					</script>
+					<style>
+					.config-table th { text-align:right; padding-right:20px; font-weight:bold; }
+					.config-table tr.odd { background-color:#eee; }
+					.config-table tr.even { background-color:#fff; }
+					.config-name { display:none; }
+					</style>
+					{if(END_DEBUG === true)}<input type="checkbox" id="show_var_name" /><label for="show_var_name">{DEV_MODE}</label><br />{/if}
+					<table class="config-table" width="100%">
+						{foreach($items as $_id=>$item)}
+						<?php
+						#$item['config_id'] = $_id+1;
+						##
+						#$item['config_id'] = $item['config_id'];
+						#var_dump($item);
+						#var_dump($items);
+						?>
+						<tr>
+							<th width="200">
+								<div class="config-name">
+									{$item['name']}&nbsp;
+									<a href="javascript:;" onclick="delete_config('{$item['config_id']}',this);">{DELETE}</a>&nbsp;
+									
+								</div>
+								<div class="config-desc">{$item['description']}</div>
+							</th>
+							<td>
+								<?php
+											echo '<div ';
+											//配置可编辑的单元格
+
+												if ($item['type'] == 'select')
+												{
+													$select_id = 'select_source_'.$item['config_id'];
+													echo ' admin_type="text" ';
+													echo ' admin_select_value="'.$item['value'].'" ';
+								                    			echo ' admin_select_source_id="'.$select_id.'" ';
+							                       				echo ' admin_para="m=update&table=config&column=value&id='.$item['config_id'].'" ';
+							 						echo ' admin_trigger="click" ';
+												}
+												else if ($item['type'] == 'textarea')
+												{
+													echo ' admin_type="textarea" ';
+							                       					echo ' admin_para="m=update&table=config&column=value&id='.$item['config_id'].'" ';
+							 						echo ' admin_trigger="click" ';
+													if ($field['height']) 
+														echo ' style="overflow:hidden;height:'.$field['height'].'px" ';
+												}
+												else
+												{
+													echo ' admin_type="text" ';
+							                       					echo ' admin_para="m=update&table=config&column=value&id='.$item['config_id'].'" ';
+							 						echo ' admin_trigger="click" ';
+												}
+
+											echo ">";
+
+											if ($item['type'] == 'select')
+											{
+												echo '<script>document.write(show_select_value("'.$item['config_id'].'","'.$item['value'].'"));</script>';
+											}
+											else
+											//显示数据
+											echo $item['value'];
+
+											echo "</div>";
+								?>
+							</td>
+						</tr>
+						{/foreach}
+					</table>
+				</div>
+				<script>
+
+				var t = 0;
+				$('.config-table tr').each(function()
+				{
+					t++;
+					$(this).addClass((t %2)?'even':'odd');
+				});
+				$('#show_var_name').click(function()
+				{
+					$('.config-name').css('display',this.checked?'block':'none');
+				});
+
+				</script>
+				{$pager} &nbsp; 
+		
+
+	                <br />
+	                <br />
+
+
+	        </div>
+     	</div>
+    </div>
+</div>
+
+<script>
+
+function new_config(o)
+{
+	$(o).addClass('nav_on').attr('newconfig','yes');
+	$('#new_config').fadeTo(10,0).slideDown(200).fadeTo('fast',1);
+}
+function cancel_new_config()
+{
+	$('a[newconfig=yes]').removeClass('nav_on');
+	$('#new_config').fadeTo('fast',0).slideUp(200);
+}
+function delete_config(id,o)
+{
+	$(o).attr('to_be_delete','yes').html('{DELETING}').unbind('click');
+	$.post('admin.php?p=ajax&m=delete&table=config&id='+id,{ },delete_callback);
+}
+function delete_callback(s)
+{
+	if (s == 'error')
+	{
+		alert('{DELETE_ERROR}');
+		return false;
+	}
+	$('[to_be_delete=yes]').parents('tr').fadeOut();
+}
+
+</script>
+
+<!-- INCLUDE footer.html -->
+
+</div>
+</body>
+</html>

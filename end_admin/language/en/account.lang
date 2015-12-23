@@ -1,0 +1,15 @@
+POSITION = Change Password
+ADMIN_OLD_PASSWORD_ERROR=Password Error!
+TITLE = Change Password
+USER_NAME = Username
+EMAIL = E-mail
+NEW_PASSWORD = New password
+USER_PASSWORD_CONFIRM = Re-type new password
+PASSWORD_NOT_THE_SAME = Please input the same password twice!
+USER_SUBMIT = Submit
+IF_NOT_CHANGE = 
+ADMIN_UPDATE_SUCCESS = Success!
+ADMIN_UPDATE_ERR = Error!
+INPUT_ALL = Please complete all required fields!
+CHANGES_SAVED = Success!
+current_password = Current password

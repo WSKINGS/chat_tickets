@@ -1,0 +1,71 @@
+<!-- INCLUDE header.html -->
+<div class="book-container">
+  <div class="navi">
+      <span class="navi-item previous-item pull-left"><?php echo $texts['choose_ticket']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item previous-item pull-left"><?php echo $texts['submit_info']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item current-item pull-left"><?php echo $texts['wait_for_payment']; ?></span>
+      <span class="arrow-item pull-left"> >> </span>
+      <span class="navi-item next-item pull-left"><?php echo $texts['book_suceed']; ?></span>
+  </div>
+  <div class="content">
+  	<div class="well well-lg">
+  	<?php if ($order_status) : ?>
+  		<p class="text-success"><?php echo $texts['order_create_suceed_part_1']." ".$order_data['order_serial']." ".$texts['order_create_suceed_part_2']; ?></p>
+  		<br/>
+  			<p class="text-warning"><?php echo ($host_check_status)?$texts['order_approved_explain']:$texts['wait_for_approve_explain']; ?></p>
+	  	<?php if ($payment_notify && $host_check_status) : ?>
+	  		<br/>
+	  		<p class="text-warning"><?php echo $texts['payment_attention_part_1']." ".$end_time." ".$texts['payment_attention_part_2']; ?></p>
+	  	<?php endif; ?>
+	  		<br/>
+	  		<p class=""><?php echo ($manage_notify)?$texts['order_maganement_attention']:""; ?></p>
+	  		<br/>
+	  		<p><?php echo $button_html; ?></p>
+  	<?php else : ?>
+  		<p class="text-success"><?php echo $texts['order_is_not_ok_part_1']." ".$order_data['order_serial']." ".$texts['order_is_not_ok_part_2']; ?></p>
+  	<?php endif; ?>
+  	</div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="pay_modal" tabindex="-1" role="dialog" aria-labelledby="pay_modal_label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p><?php echo $texts['pay_question']; ?></p>
+        <div class="text-center">
+        	<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $texts['pay_failed']; ?></button>
+        	<a href="<?php echo $success_url ?>" type="button" class="btn btn-success"><?php echo $texts['pay_finished']; ?></a>
+			
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- include script.html -->
+<script type="text/javascript">
+$( function() {
+	$("#pay_form").submit(function(evt) {
+		$("#pay_modal").modal({
+			show: true,
+			keyboard: false,
+			backdrop: 'static'
+		});
+		return true;
+	});
+	
+	/*$("#return_home").click(function() {
+	
+		window.location.href="";
+	});*/
+});
+
+function return_home(url){
+	window.location.href=url;
+}
+</script>
+<!-- include footer.html -->

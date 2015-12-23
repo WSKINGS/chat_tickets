@@ -1,0 +1,33 @@
+TITLE = Contents
+
+CATEGORIES_TREE=Categories
+category_root=Root
+ROOT_CATEGORY = Root
+ITEM_CATEGORY=Category
+display=Display
+SHOW_ALL=All
+
+NEW_ITEM = Add
+VIEW_ITEM_CONTENT=View Content
+STATUS=Status
+return_alert=Are you sure to return (changes will lost)?
+ITEM_SAVE_SUCCESS = Saved
+upload_image_descriptioin=Only image files(*.jpg;*.jpeg;*.png;*.gif;)
+UPLOAD_ATTACHMENT=Upload file
+
+CATEGORY_TYPE=Category type
+
+
+
+
+is_empty=is empty
+upload_error=upload failed
+not_allowed_file_type=file type not allowed
+file_type_not_configed=file type not configed
+need_config_upload_file_types=need config.upload_file_types in system config
+
+
+save=Save
+save_as=Save As
+add_item=Add
+edit_item=Edit

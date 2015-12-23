@@ -1,0 +1,26 @@
+title=Role and ACL
+rights=Access
+rights_group = Role
+rights_group_new= Add a role
+RIGHTS_GROUP_NAME = role name
+RIGHTS_NAME = Role name
+RIGHTS_DESCRIPTION = Description
+CONFIG_RIGHTS = ACL 
+SELECT_ALL=Select All
+SELECT_INVERSE=&nbsp;&nbsp;Inverse
+
+rights_add_success=success
+rights_add_failed=failed
+rights_updated=success
+limit_category_id =Aplly to checked categories only
+
+rights_delete =delete
+rights_add =add
+rights_update=update
+rights_view=view
+
+rights_update_password=change password
+rights_config=ACL
+
+admins=Administrators
+roles=Roles

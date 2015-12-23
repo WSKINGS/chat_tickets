@@ -1,0 +1,21 @@
+title=系统设置
+config_new = 新建
+new_config = 新建设置
+CONFIG_NAME = 变量名
+CONFIG_DESCRIPTION = 显示名字
+SINGLE_LINE=单行文本
+MULTI_LINE=多行文本
+config_submit=提交
+category_description=描述
+config_var_name = 变量名
+config_value = 值
+config_type=类型
+config_text=单行文本
+config_textarea=多行文本
+config_richtext=富文本
+config_select=选择框
+config_options=选项
+CONFIG_OPTION_NAME=名
+CONFIG_OPTION_VALUE=值
+CONFIG_OPTION_SELECTED=默认选中
+config_options_description=<br>如果类型是选择框，那么需要在这里输入选项。<br>格式为: 值=名称，每行一个选项。例如：<br>yes=是的<br>no=否

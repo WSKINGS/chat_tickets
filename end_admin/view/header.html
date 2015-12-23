@@ -1,0 +1,42 @@
+<div id="admin_logo">
+	<h1><a href="./" target="_blank">{$config.site_name}</a></h1>
+	<div id="admin_info">
+		{CURRENT_LOGIN_USER}: <span class="username">{$_SESSION.login_user.name}</span> 
+		<a href="admin.php?p=account">{HEAD_CHANGE_PASSWORD}</a> 
+		<a href="admin.php?p=login&m=logout&module=admin&backurl=index.php">{HEAD_LOGOUT}</a>
+	</div>
+</div>
+<div id="admin_menu">
+<ul>
+    <ul>
+		
+		<li><a href='admin.php' <?php 
+		if (END_CONTROLLER == "index") echo " class='hover' "
+		?>>{INDEX}</a></li>
+        <?php
+
+	$display_controllers = array(
+		'item',
+		'category',
+		'config',
+		'admin',
+		'extension'
+	);
+	
+	foreach($display_controllers as $_p)
+	{
+		if (END_ENABLE_EXTENSION == false && $_p == 'extension') continue;
+		if (!$_SESSION['login_user']['allowed_controllers'][$_p]) continue;
+		echo "<li><a  ";
+		if (END_CONTROLLER == $_p) echo " class='hover' ";
+		echo "href='admin.php?p=$_p'>".lang('NAVI_'.$_p)."</a></li>";
+	}
+	?>
+	</ul>
+  </ul>
+</div>
+<script>
+<?php if (!check_show('update')):?>
+can_not_update = true;
+<?php endif;?>
+</script>

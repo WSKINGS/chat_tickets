@@ -1,0 +1,49 @@
+.option_button
+{
+	background-color:#0000CC;
+	color:#FFFFFF;
+	cursor:pointer;
+	margin-right:3px;
+}
+.option_div
+{
+	position:absolute;
+	z-index:9999;
+	height:20px;
+}
+.text_mouseover
+{
+	background-color:#FFB;
+	color:#111111;
+}
+.text_input
+{
+	border:1px solid #FF8000;
+	/*padding:1px 0px 1px 0px;*/
+	font-size:12px;
+	margin:0px;
+	overflow:hidden;
+}
+.admin_button
+{
+	margin-left:20px;
+}
+.admin_button a
+{
+	background-color:#3300FF;
+	color:#ffffff;
+}
+.tip_div
+{
+	position:absolute;
+	background-color:#111111;
+	z-index:1000;
+	display:none;
+	color:#ffffff;
+	padding:3px;
+}
+
+/* 防止英文撑大表格 */
+td {
+	word-break: break-all;
+}

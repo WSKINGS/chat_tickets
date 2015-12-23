@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{LOGIN_TITLE}</title>
+<link href="end_admin/view/style/admin_style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="login_logo">
+<h2 class="f_l">{$config.site_name}</h2>
+</div>
+<form action="admin.php?p=login&module=admin&m=login&backurl={urlencode($backurl)}" method="post">
+<div id="login">
+<div id="login_s">{USERNAME}：<input type="text" name="name" id="username" class="login_i" />&nbsp;&nbsp;{PASSWORD}：<input type="password" name="password" class="login_i" /> &nbsp;<input type="submit" class="login_s" name="username" value="{LOGIN_SUBMIT}" /></div>
+</div>
+</form>
+<script>
+document.getElementById('username').focus();
+</script>
+</body>
+</html>
